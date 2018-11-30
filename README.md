@@ -1,7 +1,5 @@
 ## Welcome to GitHub Pages
 
-AC 209 Final Project
-
 You can use the [editor on GitHub](https://github.com/ms5113/AC209a-Twitter-Project/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
