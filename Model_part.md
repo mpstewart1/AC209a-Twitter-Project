@@ -1,7 +1,14 @@
 
-# <img style="float: left; padding-right: 10px; width: 45px" src="https://raw.githubusercontent.com/Harvard-IACS/2018-CS109A/master/content/styles/iacs.png"> AC209a Twitter Project - Group 15
+---
+nav_include: 1
+title: Twitter Bot Detection Models
+notebook: Model_part.ipynb
+---
 
-## Experiments with Twitter API
+## Contents
+{:.no_toc}
+*  
+{: toc}
 
 **Harvard University**<br/>
 **Fall 2018**<br/>
@@ -9,7 +16,6 @@
 **Assigned Teaching Fellow**: Brandon Lee
 
 <hr style="height:2pt">
-
 
 
 ```python
