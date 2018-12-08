@@ -1,37 +1,19 @@
-## Welcome to GitHub Pages
+## AC209a Twitter Bot Detection Project
 
-You can use the [editor on GitHub](https://github.com/ms5113/AC209a-Twitter-Project/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This repository contains all of the notebooks that were developed for the purpose of detecting bots on Twitter using data science and machine learning techniques, for the AC209a fall semester class at Harvard University.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Access the Github Pages website [here](https://mrdragonbear.github.io/AC209a-Twitter-Project/)
 
-### Markdown
+The notebooks outlined the procedure of data acquisition using the **tweepy** Twitter API library for Python, followed by exploratory data analysis and model development. Natural language processing techniques such as topic modeling and sentiment analysis were also implemented to obtain both tweet-level features user-level features. The machine learning techniques utilized in this study were:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- Logistic Regression
+- LDA/QDA
+- Random Forest
+- Boosting
+- K Nearest Neighbors
+- Feed Forward Artificial Neural Network
+- Support Vector Machines
+- Stacking (Meta Ensembling)
+- Blended Ensemble
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ms5113/AC209a-Twitter-Project/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+These models are compared and the most informative features to determine whether a particular Twitter account is a bot or a legitimate user are discussed. A discussion is also given which aims to answer the following question, *How do bots and legitimate users differ in their discussion of political topics?*
