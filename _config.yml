@@ -1,6 +1,6 @@
 theme: jekyll-theme-primer
-title: Twitter Bot Detection
-description: Using machine learning to detect bots on Twitter
+title: AC209a Twitter Bot Detection Project
+description: Using machine learning to detect bots on Twitter.
 baseurl:
 markdown: kramdown
 kramdown:
