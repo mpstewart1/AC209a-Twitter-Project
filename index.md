@@ -21,5 +21,3 @@ The machine learning techniques used in this project are:
 - Support Vector Machines
 - Stacking (Meta Ensembling)
 - Blended Ensemble
-
-![screenshot](/img/bot.jpg){ width=50% }
