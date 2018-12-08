@@ -22,4 +22,4 @@ The machine learning techniques used in this project are:
 - Stacking (Meta Ensembling)
 - Blended Ensemble
 
-![screenshot](/img/bot.jpg)
+![screenshot](/img/bot.jpg){ width=50% }
