@@ -1,6 +1,6 @@
 ---
-nav_include: 1
-title: Twitter Bot Detection Models
+nav_include: 2
+title: Models
 notebook: Final_Models.ipynb
 ---
 
