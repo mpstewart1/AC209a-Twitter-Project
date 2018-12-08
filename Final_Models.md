@@ -21,9 +21,9 @@ notebook: Final_Models.ipynb
 
 5. `Matplotlib` - **Python data visualization library** - [Documentation](https://matplotlib.org/contents.html)
 
-6. 'Botometer' - **Bot checking library for Twitter** - [Documentation](https://market.mashape.com/OSoMe/botometer)
+6. `Botometer` - **Bot checking library for Twitter** - [Documentation](https://market.mashape.com/OSoMe/botometer)
 
-7. 'Seaborn' - **Python data visualization library based on matplotlib** - [Documentation](https://seaborn.pydata.org/)
+7. `Seaborn` - **Python data visualization library based on matplotlib** - [Documentation](https://seaborn.pydata.org/)
 
 8. `scikit-learn` - **Python machine learning library** - [Documentation](https://scikit-learn.org/stable/documentation.html)
 
@@ -59,8 +59,8 @@ logreg_test = logreg.score(X_test_scaled, Y_test)
 print('Accuracy of logistic regression model on the test set is {:.3f}'.format(logreg_test))
 ```
 
-    **Accuracy of logistic regression model on training set is: 0.776**
-    **Accuracy of logistic regression model on the test set is: 0.775**
+    Accuracy of logistic regression model on training set is: 0.776
+    Accuracy of logistic regression model on the test set is: 0.775
     
 As we can see for the basic logistic regression model, the model performs reasonably well on the dataset and is not overfitting. A confusion matrix will help us to assess the relative proportions of true positives and negatives and false positives and negatives when using this model.
 
@@ -88,7 +88,9 @@ plot_confusion_matrix(df_conf_norm)
 
 ![png](Final_Models_files/Final_Models_14_0.png)
 
-The confusion matrix for the basic logistic regression model shows us that we do 
+The confusion matrix for the basic logistic regression model shows us how well our model is performing in terms of testing accuracy as well as false positive rate. We see that our testing accuracy is around 80% and our false positive rating is between 0.2 and 0.3. Research papers estimate that around 10% of Twitter users are bots, which means that our model is not great as we are falsely predicting around 20% of the overall population. We should aim to reduce our false positive rate to below 10% to account for this.
+
+So we can probably do better than the basic logistic regression model, let us first try by adding polynomial and interaction features and also cross-validation.
 
 
 ```python
@@ -104,10 +106,9 @@ linearLogCVpoly_train = linearLogCVpoly.score(X_train_scaled, Y_train)
 linearLogCVpoly_test = linearLogCVpoly.score(X_test_scaled, Y_test)
 ```
 
-
     Polynomial-logistic accuracy: train=80.9%, test=80.0%
     
-
+The accuracy of the polynomial model on the test set has been improved by several percent. We should once again check the confusion matrix and see if our false positive rating has also improved.
 
 
 ```python
@@ -132,18 +133,13 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from Poly-logist
 plot_confusion_matrix(df_conf_norm)
 ```
 
-
-
 ![png](Final_Models_files/Final_Models_16_0.png)
 
-
-The logistic regression model does a pretty good job of separating bots from legimitate users with just two features. Once more features are used, the model should be able to predict bots with an even higher accuracy.
+Our confusion matrix gives approximately the same value as before. The logistic regression model does a pretty good job of separating bots from legimitate users with these features. However, it performs poorly in terms of predicting a large number of false positives. Let us leave logistic regression and move on to discriminant analysis.
 
 ## LDA and QDA Model
 
 In this section we run LDA and QDA models to classify the users into either bots or legitimate users.
-
-
 
 ```python
 lda = LinearDiscriminantAnalysis(store_covariance=True)
@@ -166,12 +162,10 @@ qda_train = qda.score(X_train_scaled, Y_train)
 qda_test = qda.score(X_test_scaled, Y_test)
 ```
 
-
     LDA accuracy train=70.6%, test: 70.8%
     QDA accuracy train=70.8%, test: 71.1%
     
-
-
+The LDA and QDA models run very quickly, which is one of their main advantages. However, as we see here, their performance on the test set is relatively poor in comparison to the logistic regression models. We see that LDA and QDA yield approximately the same values on the training and test set, which indicates that the assumption that the features are normally distributed is a reasonable assumption. Let us check the confusion matrix once again.
 
 ```python
 y_pred_lda = lda.predict(X_test_scaled)
@@ -195,11 +189,9 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from LDA', cmap=
 plot_confusion_matrix(df_conf_norm)
 ```
 
-
-
 ![png](Final_Models_files/Final_Models_20_0.png)
 
-
+The confusion matrix for LDA shows that we are predicting a relatively low number of false positives, but we also have low values of true positives and false negatives. This is clearly not the best model to use. Let us see if QDA performs better.
 
 
 ```python
@@ -223,21 +215,16 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from QDA', cmap=
 
 plot_confusion_matrix(df_conf_norm)
 ```
-
-
-
 ![png](Final_Models_files/Final_Models_21_0.png)
 
-
-We see here that the LDA and QDA models perform relatively well at separating this data. However, it did not perform as well as the logistic regression method.
+QDA has a terrible performance in terms of false positives, which are nearly 40%! Clearly discriminant analysis is not the best model to use on this particular set of data. Now we can move on and try some bagging and boosting techniques. First we will try random forest.
 
 ## Random forest
 
-
+The random forest model runs a number of iterations with bootstrapped samples, and develops models where the predictors are randomly selected at each node. This helps to introduce randomness in the model which can provide variance reduction. Hopefully random forest can perform better than our previous models.
 
 ```python
-ntrees = 50
-rf = RandomForestClassifier(n_estimators=ntrees , max_depth=15, max_features='auto')
+rf = RandomForestClassifier(n_estimators=50 , max_depth=15, max_features='auto')
 rf.fit(X_train_scaled, Y_train)
 rf_train =rf.score(X_train_scaled, Y_train)
 rf_test =rf.score(X_test_scaled, Y_test)
@@ -252,11 +239,9 @@ df_confusion.index.name='Actual'
 df_confusion.columns.name='Predicted'
 ```
 
-
     RF accuracy train=99.4%, test: 91.4%
     
-
-
+This is our highest test accuracy so far! This means that 9/10 of our predictions are correct, which is a big jump up from our previous models. But, we must still assess to see how high our false positive rates are using the confusion matrix. We will also check to see what the most important features are via variable importance.
 
 ```python
 plt.figure(figsize=(5,5))
@@ -266,18 +251,9 @@ pd.Series(rf.feature_importances_,index=list(X_train_scaled)).sort_values().plot
 ```
 
 
-
-
-
     <matplotlib.axes._subplots.AxesSubplot at 0x1b41600b4e0>
 
-
-
-
 ![png](Final_Models_files/Final_Models_25_1.png)
-
-
-
 
 ```python
 def plot_confusion_matrix(df_confusion, title='Confusion matrix from RF', cmap=plt.cm.gray_r):
@@ -293,10 +269,9 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from RF', cmap=p
 plot_confusion_matrix(df_conf_norm)
 ```
 
-
-
 ![png](Final_Models_files/Final_Models_26_0.png)
 
+Our false positive rating for random forest is around 0.1, which is significantly better than our previous models. We are getting into the realm of acceptable accuracy with this model, but let's see if we can improve this further.
 
 ## Adaboost
 
