@@ -271,19 +271,18 @@ plot_confusion_matrix(df_conf_norm)
 
 ![png](Final_Models_files/Final_Models_26_0.png)
 
-Our false positive rating for random forest is around 0.1, which is significantly better than our previous models. We are getting into the realm of acceptable accuracy with this model, but let's see if we can improve this further.
+Our false positive rating for random forest is around 0.1, which is significantly better than our previous models. We are getting into the realm of acceptable accuracy with this model, but let's see if we can improve this further with a boosted model.
 
-## Adaboost
+## AdaBoost and XGBoost
 
+AdaBoost standards for adaptive boosting. The algorithm works by using decision tree classification, whereby the misclassified samples are used to adapt the model. This is done by successively adding models that are trained on the residuals of the misclassified samples to the original model, known as an additive model. Let's see how well AdaBoost performs.
 
+XGBoost is a similar method to AdaBoost, and standards for extreme gradient boosting. This name comes from the optimization technique known as gradient descent that is implemented in the model. XGBoost is the most popular machine learning model utilized by Kagglers (a data science competition website) to obtain models with superior predictive capability.
 
 ```python
 adaboost = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(max_depth=5), n_estimators=800, learning_rate=0.01)
 adaboost.fit(X_train_scaled, Y_train);
 ```
-
-
-
 
 ```python
 y_pred = adaboost.predict(X_test_scaled)
@@ -314,14 +313,11 @@ plot_confusion_matrix(df_conf_norm)
 
 ```
 
-
     Adaboost Test Accuracy: 94.58%
     
-
-
 ![png](Final_Models_files/Final_Models_29_1.png)
 
-
+This testing accuracy is even higher than the random forest model! This is clearly our best model so far, as we are only misclassifying around 5% of the test set. We should assess the variable importance and confusion matrix as we did for the random forest model.
 
 
 ```python
@@ -331,19 +327,12 @@ plt.xlabel('Relative Importance')
 pd.Series(adaboost.feature_importances_,index=list(X_train_scaled)).sort_values().plot(kind="barh")
 ```
 
-
-
-
-
     <matplotlib.axes._subplots.AxesSubplot at 0x1b4161a66a0>
-
-
-
 
 ![png](Final_Models_files/Final_Models_30_1.png)
 
 
-
+Interestingly, account age seems to be our most informative predictor, closely followed by number of friends and number of followers. The influence of account age could be because bots are more likely to be banned and thus new bots are continually created. However, we should be cautious when using this model as we are likely to overpredict that all new account are bots, which is clearly not true.
 
 ```python
 import xgboost as xgb
@@ -377,14 +366,13 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix of xgboost', cma
 plot_confusion_matrix(df_conf_norm)
 ```
 
-
     Accuracy: 92.22%
     
-
+XGBoost also performs better than the random forest model, which is expected since we attained such a high result from our Adaboost model.
 
 ![png](Final_Models_files/Final_Models_31_1.png)
 
-
+The confusion matrix for XGBoost shows that we have around 0.1 for false positives again, which is within an acceptable range. Whether this level of false positives is acceptable will be assessed in the model testing section.
 
 
 ```python
@@ -394,19 +382,16 @@ plt.xlabel('Relative Importance')
 pd.Series(xgb.feature_importances_,index=list(X_train_scaled)).sort_values().plot(kind="barh")
 ```
 
-
-
-
-
     <matplotlib.axes._subplots.AxesSubplot at 0x1b416299b70>
-
-
-
 
 ![png](Final_Models_files/Final_Models_32_1.png)
 
 
+Once again, account age is by far the most important predictor for the XGBoost model.
 
+## K Nearest Neighbors
+
+K nearest neighbors is a non-parametric technique that looks at nearby points in order to classify a new sample. This is one of the most basic machine learning techniques but can often perform well due to its inherent lack of assumptions about the data. Let's see how well the model performs.
 
 ```python
 from sklearn.neighbors import KNeighborsClassifier
@@ -425,9 +410,6 @@ for k in range(1,40):
     scores_mean.append(score_mean)
 ```
 
-
-
-
 ```python
 max_score_k=max(scores_mean)
 best_k=scores_mean.index(max(scores_mean))+1
@@ -444,11 +426,11 @@ knn_best_k_train = knn_best_k.score(X_train_scaled, Y_train)
 knn_best_k_test = knn_best_k.score(X_test_scaled, Y_test)
 ```
 
-
     Best K= 8 with a max CV score of 0.7114063374922827
     test accuracy 0.718296224588577
     
 
+As should be expected from looking at the data in the EDA section, the KNN does not do as well as the other models. However, it is not the worst model we have seen and does indeed perform better than LDA and QDA.
 
 
 ```python
@@ -471,11 +453,11 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix of KNN', cmap=pl
 plot_confusion_matrix(df_conf_norm)
 ```
 
-
-
 ![png](Final_Models_files/Final_Models_35_0.png)
 
+This confusion matrix tells us a similar story as our logistic regression plot.
 
+After all of these different models, let us plot the accuracies of all of these models together and compare their performance. Further models involving stacking, blending, and K-means will be introduced in the advanced topics section and will be compared to these models.
 
 
 ```python
@@ -490,235 +472,10 @@ plt.ylabel('ACC Test')
 plt.xticks(xx,index_name,rotation=90,fontsize = 14);
 ```
 
-
-
 ![png](Final_Models_files/Final_Models_36_0.png)
 
 
-## Support Vector Machines
-
-In this section we will use a support vector machine technique to separate the data.
-
-
-
-```python
-def plot_decision_boundary(x, y, model, title, ax, bounds=(0, 6), poly_flag=False):
-    # Plot data
-    ax.scatter(x[y == 1, 0], x[y == 1, 1], c='green')
-    ax.scatter(x[y == 0, 0], x[y == 0, 1], c='gray', alpha=0.3)
-    
-    # Create mesh
-    interval = np.arange(bounds[0], bounds[1], 0.01)
-    n = np.size(interval)
-    x1, x2 = np.meshgrid(interval, interval)
-    x1 = x1.reshape(-1, 1)
-    x2 = x2.reshape(-1, 1)
-    xx = np.concatenate((x1, x2), axis=1)
-
-    # Predict on mesh points
-    if(poly_flag):
-        quad_features = preprocessing.PolynomialFeatures(degree=2)
-        xx = quad_features.fit_transform(xx)
-        
-    yy = model.predict(xx)    
-    yy = yy.reshape((n, n))
-
-    # Plot decision surface
-    x1 = x1.reshape(n, n)
-    x2 = x2.reshape(n, n)
-    ax.contourf(x1, x2, yy, alpha=0.1, cmap='Greens')
-    
-    # Label axes, set title
-    ax.set_title(title)
-    ax.set_xlabel('Latitude')
-    ax.set_ylabel('Longitude')
-    
-    return ax
-```
-
-
-
-
-```python
-def fit_and_plot_svm_for_c(x_train, y_train, x_test, y_test, C):
-    # Fit SVM model
-    model = svm.SVC(C=C, kernel='linear')
-    model.fit(x_train, y_train)
-    
-    # Train and test error
-    tr_acc = model.score(x_train, y_train)
-    ts_acc = model.score(x_test, y_test)
-
-    # Plot decision boundary
-    #plot_decision_boundary(x_train, y_train, model, \
-    #                       'C = ' + str(C)\
-    #                       + ', train acc = ' + str(tr_acc)\
-    #                       + ', test acc = ' + str(ts_acc), ax, bounds)
-    
-    # Plot support vectors
-    #sv_indices = model.support_ # retrieve the support vector indices
-    #ax.scatter(x_train[sv_indices, 0], x_train[sv_indices, 1], color='red', alpha=0.15, s=100) # draw circles around SVs
-    
-    return tr_acc, ts_acc
-```
-
-
-
-
-```python
-# Fit and plot for different 'C' values
-tr1, ts1 = fit_and_plot_svm_for_c(X_train, Y_train, X_test, Y_test, 0.1)
-print(tr1,ts1)
-
-tr2, ts2 = fit_and_plot_svm_for_c(X_train, Y_train, X_test, Y_test, 0.5)
-print(tr2,ts2)
-
-tr3, ts3 = fit_and_plot_svm_for_c(X_train, Y_train, X_test, Y_test, 1)
-print(tr3,ts3)
-
-tr4, ts4 = fit_and_plot_svm_for_c(X_train, Y_train, X_test, Y_test, 10)
-print(tr4,ts4)
-
-tr5, ts5 = fit_and_plot_svm_for_c(X_train, Y_train, X_test, Y_test, 100)
-print(tr5,ts5)
-
-tr6, ts6 = fit_and_plot_svm_for_c(X_train, Y_train, X_test, Y_test, 1000)
-print(tr6,ts6)
-
-#plt.tight_layout()
-```
-
-
-
-
-```python
-def fit_and_plot_svm_for_poly_c(X_train_log, Y_train, X_test_log, Y_test, C, degree = 2):
-    # Fit SVM model
-    model = svm.SVC(C=C, kernel='poly', degree=degree)
-    model.fit(X_train, Y_train)
-    
-    # Train and test error
-    tr_acc = model.score(X_train, Y_train)
-    ts_acc = model.score(X_test, Y_test)
-
-    # Plot decision boundary
-    #plot_decision_boundary(X_train, Y_train, model, \
-    #                       'C = ' + str(C)\
-    ##                       + ', train acc = ' + str(tr_acc)\
-     #                      + ', test acc = ' + str(ts_acc), ax, bounds)
-    
-    # Plot support vectors
-    #sv_indices = model.support_ # retrieve the support vector indices
-    #ax.scatter(X_train_log[sv_indices, 0], X_train[sv_indices, 1], color='red', alpha=0.15, s=100) # draw circles around SVs
-    
-    return tr_acc, ts_acc
-```
-
-
-
-
-```python
-# Fit and plot for different 'C' values when polynomial degree is 2
-#fig, ax = plt.subplots(2, 3, figsize = (15, 10))
-
-deg = 4
-
-tr7, ts7 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 0.5, degree = deg)
-print(tr7,ts7)
-
-tr8, ts8 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 1, degree = deg)
-print(tr8,ts8)
-
-tr9, ts9 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 10, degree = deg)
-print(tr9,ts9)
-
-tr10, ts10  = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 100, degree = deg)
-print(tr10,ts10)
-
-tr11, ts11 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 1000, degree = deg)
-print(tr11,ts11)
-
-tr12, ts12 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 10000, degree = deg)
-print(tr12,ts12)
-
-#plt.tight_layout()
-```
-
-
-
-
-```python
-# Fit and plot for different degrees for polynomial boundary...this takes a while
-#fig, ax = plt.subplots(2, 2, figsize = (15, 10))
-
-tr13,ts13 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 1000, degree = 1)
-print(tr13,ts13)
-
-tr14, ts14 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 1000, degree = 2)
-print(tr14,ts14)
-
-tr15, ts15 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 1000, degree = 3)
-print(tr15,ts15)
-
-tr16,ts16 = fit_and_plot_svm_for_poly_c(X_train, Y_train, X_test, Y_test, 1000, degree = 4)
-print(tr16,ts16)
-
-#plt.tight_layout()
-```
-
-
-
-
-```python
-# What about other kernels?
-def fit_and_plot_svm_for_kernels(x_train, y_train, x_test, y_test, C, kernel = 'rbf'):
-    # Fit SVM model
-    model = svm.SVC(C=C, kernel=kernel)
-    model.fit(X_train, Y_train)
-    
-    # Train and test error
-    tr_acc = model.score(X_train, Y_train)
-    ts_acc = model.score(X_test, Y_test)
-
-    # Plot decision boundary
-    #plot_decision_boundary(x_train, y_train, model, \
-    #                       'C = ' + str(C)\
-    #                       + ', train acc = ' + str(tr_acc)\
-    #                       + ', test acc = ' + str(ts_acc), ax, bounds)
-   # 
-    # Plot support vectors
-    #sv_indices = model.support_ # retrieve the support vector indices
-    #ax.scatter(x_train[sv_indices, 0], x_train[sv_indices, 1], color='red', alpha=0.15, s=100) # draw circles around SVs
-    
-    return tr_acc, ts_acc
-```
-
-
-
-
-```python
-#fig, ax = plt.subplots(2, 3, figsize = (15, 10))
-
-tr17, ts17 = fit_and_plot_svm_for_kernels(X_train, Y_train, X_test, Y_test, 100, kernel = "poly")
-print(tr17,ts17)
-
-tr18, ts18 = fit_and_plot_svm_for_kernels(X_train, Y_train, X_test, Y_test, 100, kernel = "rbf")
-print(tr18,ts18)
-
-tr19, ts19 = fit_and_plot_svm_for_kernels(X_train, Y_train, X_test, Y_test, 100, kernel = "sigmoid")
-print(tr19,ts19)
-
-tr20, ts20 = fit_and_plot_svm_for_kernels(X_train, Y_train, X_test, Y_test, 1000, kernel = "poly")
-print(tr20,ts20)
-
-tr21, ts21 = fit_and_plot_svm_for_kernels(X_train, Y_train, X_test, Y_test, 1000, kernel = "rbf")
-print(tr21,ts21)
-
-tr22, ts22 = fit_and_plot_svm_for_kernels(X_train, Y_train, X_test, Y_test, 1000, kernel = "sigmoid")
-print(tr22, ts22)
-
-#plt.tight_layout()
-```
+We see that our best model was AdaBoost, which achieved a 94.5% accuracy on the test set. Our worst models were KNN, LDA, and QDA. The models with the lowest level of false positives were AdaBoost, XGBoost, and random forest. These are the top three models that should be further pursued for the optimized bot detection model.
 
 
 ## Stacked Model
