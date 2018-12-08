@@ -16,4 +16,7 @@ The notebooks outlined the procedure of data acquisition using the **tweepy** Tw
 - Stacking (Meta Ensembling)
 - Blended Ensemble
 
-These models are compared and the most informative features to determine whether a particular Twitter account is a bot or a legitimate user are discussed. A discussion is also given which aims to answer the following question, *How do bots and legitimate users differ in their discussion of political topics?*
+These models are compared and the most informative features to determine whether a particular Twitter account is a bot or a legitimate user are discussed. A discussion is also given which aims to answer the following question:
+
+ **How do bots and legitimate users differ in their discussion of political topics?**
+
