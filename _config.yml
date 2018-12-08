@@ -1,4 +1,4 @@
-theme: jekyll-theme-primer
+theme: jekyll-theme-slate
 title: Twitter Bot Detection
 description: Using machine learning to detect bots on Twitter
 baseurl:
