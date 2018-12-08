@@ -1,6 +1,6 @@
 theme: jekyll-theme-primer
-title: Support Vector Olives
-description: Keeping Italian Olives Pure!
+title: AC209a Twitter Bot Detection Project
+description: Using machine learning to detect bots on Twitter
 baseurl:
 markdown: kramdown
 kramdown:
