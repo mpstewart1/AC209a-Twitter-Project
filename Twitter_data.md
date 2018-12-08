@@ -1,4 +1,13 @@
+---
+nav_include: 1
+title: Data Acquisition
+notebook: Twitter_data.ipynb
+---
 
+## Contents
+{:.no_toc}
+*  
+{: toc}
 
 ```python
 !pip install tweepy

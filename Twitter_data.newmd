@@ -1,5 +1,6 @@
 ---
-title: Check a sequence of accounts
+nav_include: 1
+title: Data Acquisition
 notebook: Twitter_data.ipynb
 ---
 
