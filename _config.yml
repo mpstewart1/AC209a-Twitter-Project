@@ -1,4 +1,4 @@
-theme: jekyll-theme-cayman
+theme: jekyll-theme-primer
 title: AC209a Twitter Bot Detection Project
 description: Using machine learning to detect bots on Twitter
 baseurl:
