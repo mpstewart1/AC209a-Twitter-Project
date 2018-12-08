@@ -43,8 +43,6 @@ That paper also shows how you can generate a diverse set of models by various me
 
 Applying stacked models to real-world big data problems can produce greater prediction accuracy and robustness than do individual models. The model stacking approach is powerful and compelling enough to alter your initial data mining mindset from finding the single best model to finding a collection of really good complementary models. Of course, this method does involve additional cost both because you need to train a large number of models and because you need to use cross validation to avoid overfitting.
 
-## Stacked Model
-
 In this section we will try to implement a stacked model similar to that proposed in the "[Stacked Ensemble Models for Improved Prediction Accuracy](https://support.sas.com/resources/papers/proceedings17/SAS0437-2017.pdf)" paper.
 
 ```python
@@ -54,7 +52,7 @@ from sklearn.ensemble import (RandomForestClassifier, AdaBoostClassifier,
 from sklearn.svm import SVC
 ```
 
-## Helpers via Python Classes
+### Helpers via Python Classes
 
 In the section of code below, we essentially write a class SklearnHelper that allows one to extend the inbuilt methods (such as train, predict and fit) common to all the Sklearn classifiers. Therefore this cuts out redundancy as won't need to write the same methods five times if we wanted to invoke five different classifiers.
 
@@ -205,11 +203,7 @@ ada = SklearnHelper(clf=AdaBoostClassifier, seed=SEED, params=ada_params)
 gb = SklearnHelper(clf=GradientBoostingClassifier, seed=SEED, params=gb_params)
 svc = SklearnHelper(clf=SVC, seed=SEED, params=svc_params)
 logreg_stack = SklearnHelper(clf=LogisticRegression, seed=SEED, params=logreg_params)
-#lda_stack = SklearnHelper(clf=LinearDiscriminantAnalysis, params=lda_params)
-#qda_stack = SklearnHelper(clf=QuadraticDiscriminantAnalysis, params=qda_params)
-#polylogreg_stack = SklearnHelper(clf=polynomial_logreg_estimator, seed=SEED, params=polylogreg_params)
 ```
-
 
 ### Output of the First level Predictions
 
@@ -224,16 +218,8 @@ rf_oof_train, rf_oof_test = get_oof(rf,X_train_scaled, Y_train, X_test_scaled) #
 ada_oof_train, ada_oof_test = get_oof(ada, X_train_scaled, Y_train, X_test_scaled) # AdaBoost 
 gb_oof_train, gb_oof_test = get_oof(gb,X_train_scaled, Y_train, X_test_scaled) # Gradient Boost
 svc_oof_train, svc_oof_test = get_oof(svc,X_train_scaled, Y_train, X_test_scaled) # Support Vector Classifier
-logreg_oof_train, logreg_oof_test = get_oof(logreg_stack,X_train_scaled, Y_train, X_test_scaled) # Linear Logistic Regression
-#lda_oof_train, lda_oof_test = get_oof(lda_stack,X_train_scaled, Y_train, X_test_scaled) # LDA
-#qda_oof_train, qda_oof_test = get_oof(qda_stack,X_train_scaled, Y_train, X_test_scaled) # QDA
-#polylogreg_oof_train, polylogreg_oof_test = get_oof(polylogreg_stack,X_train_scaled, Y_train, X_test_scaled) # Polynomial Logistic Regression
-
-print("Training is complete")
+logreg_oof_train, logreg_oof_test = get_oof(logreg_stack,X_train_scaled, Y_train, X_test_scaled) # Logistic regression
 ```
-
-
-    Training is complete
     
 
 ### Feature importances generated from the different classifiers
@@ -241,8 +227,6 @@ print("Training is complete")
 Now having learned our the first-level classifiers, we can utilise a very nifty feature of the Sklearn models and that is to output the importances of the various features in the training and test sets with one very simple line of code.
 
 As per the Sklearn documentation, most of the classifiers are built in with an attribute which returns feature importances by simply typing in .featureimportances. Therefore we will invoke this very useful attribute via our function earliand plot the feature importances as such
-
-
 
 ```python
 rf_feature = rf.feature_importances(X_train_scaled,Y_train);
@@ -264,24 +248,7 @@ gb_feature = gb.feature_importances(X_train_scaled,Y_train);
      1.64445226e-04 2.16018516e-01 2.26869048e-03 2.54855733e-01
      1.05620892e-01 2.65655795e-01 7.26437428e-02 5.64419007e-02
      1.09025601e-02]
-    
-
-
-
-```python
-rf_feature = [0.01040077, 0.00271345, 0.02571925, 0.00269657, 0.00062294, 0.11067271, 0.00524144,
-              0.19651664, 0.15383554, 0.22888341, 0.13083209, 0.11240919, 0.01945599]
-et_feature = [0.1851489,  0.02698042, 0.11626441, 0.02168347, 0.00496865, 0.31242358, 0.02762129,
-              0.07809107, 0.00762381, 0.07623999, 0.04850533, 0.06264847, 0.03180063]
-ada_feature = [0.008, 0.014, 0.012, 0.002, 0.,    0.666, 0.016, 0.06,  0.038, 0.03,  0.06,  0.06, 0.034]
-gb_feature = [5.58484420e-03, 2.58457182e-03, 6.06856077e-03, 1.18974807e-03, 1.64445226e-04,
-              2.16018516e-01, 2.26869048e-03, 2.54855733e-01, 1.05620892e-01, 2.65655795e-01,
-              7.26437428e-02, 5.64419007e-02, 1.09025601e-02]
-```
-
-
-
-
+  
 ```python
 cols = X_train_scaled.columns.values
 display(cols)
@@ -295,21 +262,6 @@ feature_dataframe = pd.DataFrame( {'features': cols,
 
 feature_dataframe
 ```
-
-
-
-    array(['Screen name length', 'Number of digits in screen name',
-           'User name length', 'Default profile (binary)',
-           'Default picture (binary)', 'Account age (days)',
-           'Number of unique profile descriptions', 'Number of friends',
-           'Number of followers', 'Number of favorites',
-           'Number of tweets per hour', 'Number of tweets total',
-           'timing_tweet'], dtype=object)
-
-
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -445,22 +397,7 @@ feature_dataframe
 </div>
 
 
-
-
-
-```python
-import plotly
-import plotly.offline as py
-py.init_notebook_mode(connected=True)
-import plotly.graph_objs as go
-import plotly.tools as tls
-```
-
-
-
 <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script><script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window._Plotly) {require(['plotly'],function(plotly) {window._Plotly=plotly;});}</script>
-
-
 
 
 ```python
