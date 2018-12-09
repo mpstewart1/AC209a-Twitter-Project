@@ -275,7 +275,7 @@ Our false positive rating for random forest is around 0.1, which is significantl
 
 ## AdaBoost and XGBoost
 
-AdaBoost standards for adaptive boosting. The algorithm works by using decision tree classification, whereby the misclassified samples are used to adapt the model. This is done by successively adding models that are trained on the residuals of the misclassified samples to the original model, known as an additive model. Let's see how well AdaBoost performs.
+AdaBoost stands for adaptive boosting. The algorithm works by using decision tree classification, whereby the misclassified samples are used to adapt the model. This is done by successively adding models that are trained on the residuals of the misclassified samples to the original model, known as an additive model. Let's see how well AdaBoost performs.
 
 XGBoost is a similar method to AdaBoost, and standards for extreme gradient boosting. This name comes from the optimization technique known as gradient descent that is implemented in the model. XGBoost is the most popular machine learning model utilized by Kagglers (a data science competition website) to obtain models with superior predictive capability.
 
