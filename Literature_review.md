@@ -1,3 +1,13 @@
+---
+nav_include: 1
+title: Literature Review
+notebook: literature_Review.ipynb
+---
+
+## Contents
+{:.no_toc}
+*  
+{: toc}
 
 ## Literature Review and Related Work
 
