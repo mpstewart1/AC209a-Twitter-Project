@@ -3,8 +3,11 @@ title: AC209a Twitter Bot Detection Project
 ---
 
 **Harvard University**
+
 **Fall 2018 Semester**
+
 **AC209a Project Group** : 15
+
 **Group Members**: Matthew Stewart, Claire Stolz, Yiming Qin, and Tianning Zhao
 
 ## Project Introduction
