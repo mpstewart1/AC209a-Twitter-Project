@@ -9,55 +9,18 @@ notebook: Twitter_data.ipynb
 *  
 {: toc}
 
-```python
-!pip install tweepy
-!pip install nltk
-!pip install twython
-!pip install jsonpickle
-!pip install botometer
-```
+## Twitter API Login
 
+The first thing that is needed is to gain access to the Twitter API, this involves setting up an account on the Twitter Development Platform, located [here](https://developer.twitter.com/content/developer-twitter/en.html). Once this is done, we have access to our access token and consumer key which allows us to connect to the API.
 
 ```python
-import networkx as nx
-```
-
-
-```python
-import sys
-import jsonpickle
-import os
-import tweepy
-import nltk
-import pandas as pd
-import json
-from pandas.io.json import json_normalize
-from datetime import datetime, timezone
-import numpy as np
-import botometer
-import re
-import seaborn as sns
-import matplotlib.pyplot as plt
-import networkx as nx
-import time
-import pickle
-```
-
-
-```python
-auth = tweepy.OAuthHandler('pr0AH7Ot5sZmig4u3bA6j51ty', 'tNteF0tRlEjKJfkkWQaIv5myqT9oBqrIVOYPQJOMjBTJhn9SAF')
-auth.set_access_token('934846563825930241-yO5rosUB4x8eFMO0J7IXV1UZM0RzbgL', 'CbqfvlRonXo2JiIyxqCqeZynwkslNcDPmGFQ9KBEh8Mch')
+# Log in to Twitter API
+auth = tweepy.OAuthHandler('consumer_key', 'consumer_secret')
+auth.set_access_token('access_token', 'access_token_secret')
 api = tweepy.API(auth)
-
-mashape_key = "uIX3UUkrh7mshux9VLXhN1FcUYY0p1ZEJpCjsnCHKddXFfIzhf"
-twitter_app_auth = {
-    'consumer_key': 'pr0AH7Ot5sZmig4u3bA6j51ty',
-    'consumer_secret': 'tNteF0tRlEjKJfkkWQaIv5myqT9oBqrIVOYPQJOMjBTJhn9SAF',
-    'access_token': '934846563825930241-yO5rosUB4x8eFMO0J7IXV1UZM0RzbgL',
-    'access_token_secret': 'CbqfvlRonXo2JiIyxqCqeZynwkslNcDPmGFQ9KBEh8Mch',
-  }
 ```
 
+## Social
 
 ```python
 # A dataset of (i) genuine, (ii) traditional, and (iii) social spambot Twitter accounts, annotated by CrowdFlower contributors. Released in CSV format.
@@ -922,12 +885,12 @@ full_df_pred = create_df(dfs_pred, 'pred_dataframe')
 
 
 ```python
-mashape_key = "uIX3UUkrh7mshux9VLXhN1FcUYY0p1ZEJpCjsnCHKddXFfIzhf"
+mashape_key = "XXXX"
 twitter_app_auth = {
-    'consumer_key': 'pr0AH7Ot5sZmig4u3bA6j51ty',
-    'consumer_secret': 'tNteF0tRlEjKJfkkWQaIv5myqT9oBqrIVOYPQJOMjBTJhn9SAF',
-    'access_token': '934846563825930241-yO5rosUB4x8eFMO0J7IXV1UZM0RzbgL',
-    'access_token_secret': 'CbqfvlRonXo2JiIyxqCqeZynwkslNcDPmGFQ9KBEh8Mch',
+    'consumer_key': 'XXXX',
+    'consumer_secret': 'XXXX',
+    'access_token': 'XXXX',
+    'access_token_secret': 'XXXX',
   }
 bom = botometer.Botometer(wait_on_ratelimit=True,
                           mashape_key=mashape_key,
@@ -1045,9 +1008,4 @@ end-start
 
 ```python
 id_str_lst = [str(s) for s in user_id_lst]
-```
-
-
-```python
-
 ```
