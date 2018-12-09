@@ -1,8 +1,13 @@
 ---
-nav_include: 2
+nav_include: 3
 title: EDA
 notebook: EDA.ipynb
 ---
+
+## Contents
+{:.no_toc}
+*  
+{: toc}
 
 ### Pearson Correlation Heatmap
 
