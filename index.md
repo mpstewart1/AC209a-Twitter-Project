@@ -36,10 +36,11 @@ The project also aims to provide insight into the following question:
 
 The project has been split into several pages throughout this website, including:
 
-- Data Acquisition
-- Exploratory Data Analysis
-- Model Development
-- Advanced Topics
-- Testing and Evaluation
+- [Literature Review](https://mrdragonbear.github.io/AC209a-Twitter-Project/Literature_review.html)
+- [Data Acquisition](https://mrdragonbear.github.io/AC209a-Twitter-Project/Twitter_data.html)
+- [Exploratory Data Analysis](https://mrdragonbear.github.io/AC209a-Twitter-Project/EDA.html)
+- [Model Development](https://mrdragonbear.github.io/AC209a-Twitter-Project/Final_Models.html)
+- [Advanced Topics](https://mrdragonbear.github.io/AC209a-Twitter-Project/Advanced_Features.html)
+- [Testing and Evaluation](https://mrdragonbear.github.io/AC209a-Twitter-Project/Testing_Evaluation.html)
 
 ![screenshot](/img/twitter.png){: .center-image }
