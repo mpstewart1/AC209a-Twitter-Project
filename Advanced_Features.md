@@ -1122,7 +1122,7 @@ plt.axhline(0.95, c='k', linewidth=3, linestyle='--');
 
 The weighted stacked model performed the best on the test set, achieving an accuracy of 85.7%, a value more than 1% higher than that achieved by the other best models: logistic regression and random forest. With extra tuning of hyperparameters and model weightings it is likely that this could be increased further.
 
-## Netrual network
+## Neural network
 
 
 ```python
