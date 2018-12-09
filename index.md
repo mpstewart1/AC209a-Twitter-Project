@@ -1,6 +1,5 @@
 ---
 title: AC209a Twitter Bot Detection Project
-![screenshot](/img/bird_bot.png){: .center-image }
 ---
 
 **Harvard University**
