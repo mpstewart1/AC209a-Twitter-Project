@@ -41,6 +41,13 @@ X_train_scaled=normalize(X_train,X_train)
 X_test_scaled=normalize(X_test,X_train)
 ```
 
+## Preliminary Model Discovery
+
+The first model that was developed as a way to trial the data used only two variables: friend count and follower count. These two variables, when shown in a log format for both legitimate users and bots, have a relatively clear boundary between them. These two features were used as a baseline model to compare other models too.
+
+![png](img/Boundary.png){: .center}
+
+
 ## User Feature Statisitcs
 
 In this section we look at several different plots to study our features and how they are different for bots and legitimate users.
@@ -49,6 +56,7 @@ In this section we look at several different plots to study our features and how
 
 First we compared the distributions of the user features for bots and human users. 
 
+![png](EDA_files/EDA_6_0.png){: .center}
 
 ```python
 features = ['Screen name length', 'Number of digits in screen name', 'User name length', 'Account age (days)', 'Number of unique profile descriptions','Default picture (binary)','Number of friends','Number of followers','Number of favorites','Number of tweets per hour', 'Number of tweets total','timing_tweet']
