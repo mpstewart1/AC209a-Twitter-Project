@@ -130,6 +130,10 @@ sh_bot_dfs, sh_bot_fail_lst = API_scrap(bot_list, 10)
 
 ## Feature Engineering
 
+In this section we explore the idea of generating further variables from already available information. The aim of the feature engineering section is to expand our number of features until we have all of the features outlined in the table below. Most of these features were suggested by journal articles found during the literature review.
+
+![png](img/Features.png){: .center}
+
 ### 1. User Meta-data Features
 
 From the scraped data we got from Twitter API, the returned user object contains a lot of useful informations that could be related to bot detection. Among those user-related features we extracted, there are three groups of them that could potentially differ between bots and human users.
