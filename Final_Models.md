@@ -477,14 +477,3 @@ plt.xticks(xx,index_name,rotation=90,fontsize = 14);
 
 We see that our best model was AdaBoost, which achieved a 94.5% accuracy on the test set. Our worst models were KNN, LDA, and QDA. The models with the lowest level of false positives were AdaBoost, XGBoost, and random forest. These are the top three models that should be further pursued for the optimized bot detection model.
 
-
-## Steps for Further Improvement
-
-As a closing remark it must be noted that the steps taken above just show a very simple way of producing an ensemble stacker. You hear of ensembles created at the highest level of Kaggle competitions which involves monstrous combinations of stacked classifiers as well as levels of stacking which go to more than 2 levels.
-
-Some additional steps that may be taken to improve one's score could be:
-
-- Implementing a good cross-validation strategy in training the models to find optimal parameter values
-- Introduce a greater variety of base models for learning. The more uncorrelated the results, the better the final score.
-
-
