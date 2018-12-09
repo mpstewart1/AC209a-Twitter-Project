@@ -86,7 +86,7 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from logreg', cm
 plot_confusion_matrix(df_conf_norm)
 ```
 
-![png](Final_Models_files/Final_Models_14_0.png)
+![png](Final_Models_files/Final_Models_14_0.png){: .center}
 
 The confusion matrix for the basic logistic regression model shows us how well our model is performing in terms of testing accuracy as well as false positive rate. We see that our testing accuracy is around 80% and our false positive rating is between 0.2 and 0.3. Research papers estimate that around 10% of Twitter users are bots, which means that our model is not great as we are falsely predicting around 20% of the overall population. We should aim to reduce our false positive rate to below 10% to account for this.
 
@@ -133,7 +133,7 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from Poly-logist
 plot_confusion_matrix(df_conf_norm)
 ```
 
-![png](Final_Models_files/Final_Models_16_0.png)
+![png](Final_Models_files/Final_Models_16_0.png){: .center}
 
 Our confusion matrix gives approximately the same value as before. The logistic regression model does a pretty good job of separating bots from legimitate users with these features. However, it performs poorly in terms of predicting a large number of false positives. Let us leave logistic regression and move on to discriminant analysis.
 
@@ -189,7 +189,7 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from LDA', cmap=
 plot_confusion_matrix(df_conf_norm)
 ```
 
-![png](Final_Models_files/Final_Models_20_0.png)
+![png](Final_Models_files/Final_Models_20_0.png){: .center}
 
 The confusion matrix for LDA shows that we are predicting a relatively low number of false positives, but we also have low values of true positives and false negatives. This is clearly not the best model to use. Let us see if QDA performs better.
 
@@ -215,7 +215,7 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from QDA', cmap=
 
 plot_confusion_matrix(df_conf_norm)
 ```
-![png](Final_Models_files/Final_Models_21_0.png)
+![png](Final_Models_files/Final_Models_21_0.png){: .center}
 
 QDA has a terrible performance in terms of false positives, which are nearly 40%! Clearly discriminant analysis is not the best model to use on this particular set of data. Now we can move on and try some bagging and boosting techniques. First we will try random forest.
 
@@ -253,7 +253,7 @@ pd.Series(rf.feature_importances_,index=list(X_train_scaled)).sort_values().plot
 
     <matplotlib.axes._subplots.AxesSubplot at 0x1b41600b4e0>
 
-![png](Final_Models_files/Final_Models_25_1.png)
+![png](Final_Models_files/Final_Models_25_1.png){: .center}
 
 ```python
 def plot_confusion_matrix(df_confusion, title='Confusion matrix from RF', cmap=plt.cm.gray_r):
@@ -269,7 +269,7 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix from RF', cmap=p
 plot_confusion_matrix(df_conf_norm)
 ```
 
-![png](Final_Models_files/Final_Models_26_0.png)
+![png](Final_Models_files/Final_Models_26_0.png){: .center}
 
 Our false positive rating for random forest is around 0.1, which is significantly better than our previous models. We are getting into the realm of acceptable accuracy with this model, but let's see if we can improve this further with a boosted model.
 
@@ -315,7 +315,7 @@ plot_confusion_matrix(df_conf_norm)
 
     Adaboost Test Accuracy: 94.58%
     
-![png](Final_Models_files/Final_Models_29_1.png)
+![png](Final_Models_files/Final_Models_29_1.png){: .center}
 
 This testing accuracy is even higher than the random forest model! This is clearly our best model so far, as we are only misclassifying around 5% of the test set. We should assess the variable importance and confusion matrix as we did for the random forest model.
 
@@ -329,7 +329,7 @@ pd.Series(adaboost.feature_importances_,index=list(X_train_scaled)).sort_values(
 
     <matplotlib.axes._subplots.AxesSubplot at 0x1b4161a66a0>
 
-![png](Final_Models_files/Final_Models_30_1.png)
+![png](Final_Models_files/Final_Models_30_1.png){: .center}
 
 
 Interestingly, account age seems to be our most informative predictor, closely followed by number of friends and number of followers. The influence of account age could be because bots are more likely to be banned and thus new bots are continually created. However, we should be cautious when using this model as we are likely to overpredict that all new account are bots, which is clearly not true.
@@ -370,7 +370,7 @@ plot_confusion_matrix(df_conf_norm)
     
 XGBoost also performs better than the random forest model, which is expected since we attained such a high result from our Adaboost model.
 
-![png](Final_Models_files/Final_Models_31_1.png)
+![png](Final_Models_files/Final_Models_31_1.png){: .center}
 
 The confusion matrix for XGBoost shows that we have around 0.1 for false positives again, which is within an acceptable range. Whether this level of false positives is acceptable will be assessed in the model testing section.
 
@@ -384,7 +384,7 @@ pd.Series(xgb.feature_importances_,index=list(X_train_scaled)).sort_values().plo
 
     <matplotlib.axes._subplots.AxesSubplot at 0x1b416299b70>
 
-![png](Final_Models_files/Final_Models_32_1.png)
+![png](Final_Models_files/Final_Models_32_1.png){: .center}
 
 
 Once again, account age is by far the most important predictor for the XGBoost model.
@@ -453,7 +453,7 @@ def plot_confusion_matrix(df_confusion, title='Confusion matrix of KNN', cmap=pl
 plot_confusion_matrix(df_conf_norm)
 ```
 
-![png](Final_Models_files/Final_Models_35_0.png)
+![png](Final_Models_files/Final_Models_35_0.png){: .center}
 
 This confusion matrix tells us a similar story as our logistic regression plot.
 
@@ -472,7 +472,7 @@ plt.ylabel('ACC Test')
 plt.xticks(xx,index_name,rotation=90,fontsize = 14);
 ```
 
-![png](Final_Models_files/Final_Models_36_0.png)
+![png](Final_Models_files/Final_Models_36_0.png){: .center}
 
 
 We see that our best model was AdaBoost, which achieved a 94.5% accuracy on the test set. Our worst models were KNN, LDA, and QDA. The models with the lowest level of false positives were AdaBoost, XGBoost, and random forest. These are the top three models that should be further pursued for the optimized bot detection model.
