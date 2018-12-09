@@ -1,4 +1,4 @@
-theme: jekyll-theme-tactile
+theme: jekyll-theme-minimal
 title: Twitter Bot Detection
 description: Using machine learning to detect bots on Twitter
 baseurl:
