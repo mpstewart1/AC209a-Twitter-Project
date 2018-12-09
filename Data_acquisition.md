@@ -9,17 +9,6 @@ notebook: Data_acquisition.ipynb
 *  
 {: toc}
 
-## Twitter API Login
-
-The first thing that is needed is to gain access to the Twitter API, this involves setting up an account on the Twitter Development Platform, located here. Once this is done, we have access to our access token and consumer key which allows us to connect to the API.
-
-```python
-# Log in to Twitter API
-auth = tweepy.OAuthHandler('consumer_key', 'consumer_secret')
-auth.set_access_token('access_token', 'access_token_secret')
-api = tweepy.API(auth)
-```
-
 ## Dataset descriptions
 
 We constructed our dataset by combining bots and human users information from two datasets. One is the relatively new Cresci-2017 dataset, with 3474 human users and 7543 bots. Another is social honeypot dataset, containing 22,223 bots and 19,276 human users. Below is a detailed description of two datasets.
@@ -96,9 +85,17 @@ bot_list = bots_df['UserID'].values.astype(int)
 
 To access the data, we used tweepy, an open-source library which provides access to the Twitter API for Python. Tweepy accesses Twitter via OAuth, requiring creation of a Twitter Developer Account and the generation of consumer keys and access tokens on Twitter developer platform. 
 
-### 1. Access to Twitter API
+### 1. Twitter API Login
 
-This was covered in the first section above.
+The first thing that is needed is to gain access to the Twitter API, this involves setting up an account on the Twitter Development Platform, located here. Once this is done, we have access to our access token and consumer key which allows us to connect to the API.
+
+```python
+# Log in to Twitter API
+auth = tweepy.OAuthHandler('consumer_key', 'consumer_secret')
+auth.set_access_token('access_token', 'access_token_secret')
+api = tweepy.API(auth)
+```
+
 
 ### 2. Scrape the data through Tweepy API
 
