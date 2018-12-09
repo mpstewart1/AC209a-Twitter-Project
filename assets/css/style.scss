@@ -8,3 +8,16 @@
     margin: 0 auto;
     display: block;
 }
+
+#wrapperHeader{
+    position: relative;
+    background-image:url(img/bird_bot.png);
+}
+
+#header{
+    left: 50%;
+    margin-left: -500px;
+    background:url(img/bird_bot.png) no-repeat;
+    width:400px;
+    height:200px;
+}
