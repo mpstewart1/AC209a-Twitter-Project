@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div id="wrapperHeader">
-    <div id="header">
-             <img src="img/bird_bot.png" width="1000" height="200" alt="logo" />
-    </div> 
-</div>
-
 {% seo %}
     <link href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" rel="stylesheet">
     <title>{{page.title}}</title>
@@ -29,6 +23,13 @@
     <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
   </head>
   <body>
+
+    <div id="wrapperHeader">
+      <div id="header">
+             <img src="img/bird_bot.png" width="1000" height="200" alt="logo" />
+      </div> 
+    </div>
+
     <div class="container-lg px-3 my-5 markdown-body">
       <nav class="group">
         {% if site.title and site.title != page.title %}
