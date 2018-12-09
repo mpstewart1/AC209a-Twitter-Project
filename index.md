@@ -10,7 +10,7 @@ title: AC209a Twitter Bot Detection Project
 
 **Group Members**: Matthew Stewart, Claire Stolz, Yiming Qin, and Tianning Zhao
 
-
+![screenshot](/img/bird_bot.png){: .center-image }
 
 ## Project Introduction
 
