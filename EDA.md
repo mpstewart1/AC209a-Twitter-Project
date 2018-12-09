@@ -1,6 +1,6 @@
 ---
 nav_include: 2
-title: Exploratory Data Analysis
+title: EDA
 notebook: EDA.ipynb
 ---
 
