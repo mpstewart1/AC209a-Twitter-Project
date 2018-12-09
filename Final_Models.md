@@ -44,7 +44,7 @@ In this section we will go through each of the individual models worked through 
 The overall results from these model and comparison between models is tackled in the discussion section. The overall aim for our models in this section is to obtain a high accuracy on the testing set whilst also minimizing the number of false positives, which would indicate that a human user is a bot. Minimizing false positives means that legitimate users are not unnecessary penalized if action is taken against bots in order to ameliorate the proliferance of bots on the social media platform.
 
 
-## Logistic Regression
+### Logistic Regression
 
 Two individual models were developed for logistic regression, first a linear logistic regression which only made use of the original 10 features from our dataframe. The second model added polynomial features of second order as well as interaction variables, which was applied using a data pipeline.
 
@@ -137,7 +137,7 @@ plot_confusion_matrix(df_conf_norm)
 
 Our confusion matrix gives approximately the same value as before. The logistic regression model does a pretty good job of separating bots from legimitate users with these features. However, it performs poorly in terms of predicting a large number of false positives. Let us leave logistic regression and move on to discriminant analysis.
 
-## LDA and QDA Model
+### LDA and QDA Model
 
 In this section we run LDA and QDA models to classify the users into either bots or legitimate users.
 
@@ -219,7 +219,7 @@ plot_confusion_matrix(df_conf_norm)
 
 QDA has a terrible performance in terms of false positives, which are nearly 40%! Clearly discriminant analysis is not the best model to use on this particular set of data. Now we can move on and try some bagging and boosting techniques. First we will try random forest.
 
-## Random forest
+### Random forest
 
 The random forest model runs a number of iterations with bootstrapped samples, and develops models where the predictors are randomly selected at each node. This helps to introduce randomness in the model which can provide variance reduction. Hopefully random forest can perform better than our previous models.
 
@@ -273,7 +273,7 @@ plot_confusion_matrix(df_conf_norm)
 
 Our false positive rating for random forest is around 0.1, which is significantly better than our previous models. We are getting into the realm of acceptable accuracy with this model, but let's see if we can improve this further with a boosted model.
 
-## AdaBoost and XGBoost
+### AdaBoost and XGBoost
 
 AdaBoost stands for adaptive boosting. The algorithm works by using decision tree classification, whereby the misclassified samples are used to adapt the model. This is done by successively adding models that are trained on the residuals of the misclassified samples to the original model, known as an additive model. Let's see how well AdaBoost performs.
 
@@ -389,7 +389,7 @@ pd.Series(xgb.feature_importances_,index=list(X_train_scaled)).sort_values().plo
 
 Once again, account age is by far the most important predictor for the XGBoost model.
 
-## K Nearest Neighbors
+### K Nearest Neighbors
 
 K nearest neighbors is a non-parametric technique that looks at nearby points in order to classify a new sample. This is one of the most basic machine learning techniques but can often perform well due to its inherent lack of assumptions about the data. Let's see how well the model performs.
 
@@ -478,7 +478,7 @@ plt.xticks(xx,index_name,rotation=90,fontsize = 14);
 We see that our best model was AdaBoost, which achieved a 94.5% accuracy on the test set. Our worst models were KNN, LDA, and QDA. The models with the lowest level of false positives were AdaBoost, XGBoost, and random forest. These are the top three models that should be further pursued for the optimized bot detection model.
 
 
-### Steps for Further Improvement
+## Steps for Further Improvement
 
 As a closing remark it must be noted that the steps taken above just show a very simple way of producing an ensemble stacker. You hear of ensembles created at the highest level of Kaggle competitions which involves monstrous combinations of stacked classifiers as well as levels of stacking which go to more than 2 levels.
 
