@@ -22,7 +22,7 @@ Several advanced models were implemented for this project, including:
 
 In addition to the packages described in the model development package, additional models were used for implementing the advanced models.
 
-1. 'Keras' - **Neural network library for Python** - [Documentation](https://keras.io/)
+1. `Keras` - **Neural network library for Python** - [Documentation](https://keras.io/)
 
 2. `Tensorflow` - **Open source machine learning framework** - [Documentation](https://www.tensorflow.org/)
 
