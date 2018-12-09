@@ -1,5 +1,5 @@
 ---
-nav_include: 3
+nav_include: 4
 title: Advanced Topics
 notebook: Advanced_Features.ipynb
 ---

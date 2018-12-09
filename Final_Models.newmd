@@ -11,27 +11,27 @@ notebook: Final_Models.ipynb
 
 ### Important packages
 
-1. `Tweepy` - Twitter API - http://docs.tweepy.org/en/v3.5.0/api.html#tweepy-api-twitter-api-wrapper
+1. `Tweepy` - **Twitter API** - [Documentation](http://docs.tweepy.org/en/v3.5.0/api.html#tweepy-api-twitter-api-wrapper)
 
-2. `nltk` - Natural language processing library - http://www.nltk.org/howto/twitter.html
+2. `nltk` - **Natural language processing library** - [Documentation](http://www.nltk.org/howto/twitter.html)
 
-3. `twython` - Python wrapper for the Twitter API
+3. `jsonpickle` - **Converts Python objects into JSON** - [Documentation](https://jsonpickle.github.io/)
 
-4. `jsonpickle` - converts Python objects into JSON
+4. `Pandas' - **Python Data Analysis Library** - [Documentation](https://pandas.pydata.org/)
 
-5. `scikit-learn` - Python machine learning library
+5. `Matplotlib' - **Python data visualization library** - [Documentation](https://matplotlib.org/contents.html)
 
-https://github.com/Jefferson-Henrique/GetOldTweets-python
+6. 'Botometer' - **Bot checking library for Twitter** - [Documentation](https://market.mashape.com/OSoMe/botometer)
 
+7. 'Seaborn' - **Python data visualization library based on matplotlib** - [Documentation](https://seaborn.pydata.org/)
 
+8. `scikit-learn` - **Python machine learning library** - [Documentation](https://scikit-learn.org/stable/documentation.html)
 
+## Models
 
-
-
-
+In this 
 
 ## Logistic Regression
-
 
 
 ```python
