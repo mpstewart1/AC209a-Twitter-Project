@@ -10,8 +10,6 @@ title: AC209a Twitter Bot Detection Project
 
 **Group Members**: Matthew Stewart, Claire Stolz, Yiming Qin, and Tianning Zhao
 
-![screenshot](/img/twitter.png){: .center-image }
-
 ## Project Introduction
 
 Twitter is the battleground of modern politics, as is espoused daily by the aggressive tweets of political elites such as U.S. president Donald Trump. Having the ability to discern bots and legitimate humans on the social media platform will afford to opportunity to help curb fake news, and thus stop Trump from using it a catch-all excuse for political gain.
@@ -43,3 +41,5 @@ The project has been split into several pages throughout this website, including
 - Model Development
 - Advanced Topics
 - Testing and Evaluation
+
+![screenshot](/img/twitter.png){: .center-image }
