@@ -43,6 +43,10 @@ X_test_scaled=normalize(X_test,X_train)
 
 ## User Feature Statisitcs
 
+In this section we look at several different plots to study our features and how they are different for bots and legitimate users.
+
+### Feature Histograms
+
 First we compared the distributions of the user features for bots and human users. 
 
 
