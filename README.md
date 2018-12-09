@@ -20,4 +20,4 @@ These models are compared and the most informative features to determine whether
 
  **How do bots and legitimate users differ in their discussion of political topics?**
 
-![screenshot](/img/bot.jpg){: .center-image-readme}
+![png](/img/bot.jpg){: .center}
