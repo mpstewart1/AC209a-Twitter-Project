@@ -56,8 +56,6 @@ In this section we look at several different plots to study our features and how
 
 First we compared the distributions of the user features for bots and human users. 
 
-![png](EDA_files/EDA_6_0.png){: .center}
-
 ```python
 features = ['Screen name length', 'Number of digits in screen name', 'User name length', 'Account age (days)', 'Number of unique profile descriptions','Default picture (binary)','Number of friends','Number of followers','Number of favorites','Number of tweets per hour', 'Number of tweets total','timing_tweet']
 fig, axes = plt.subplots(len(features),1, figsize = (10,25))
