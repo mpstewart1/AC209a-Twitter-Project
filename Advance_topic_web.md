@@ -222,13 +222,6 @@ y_test_adaboost_proba = adaboost.predict_proba(X_test_scaled)[:,1]
     test acc: 0.9715346534653465
     
 
-
-
-```python
-# y_pre_df_adaboost = adaboost.predict(pre_df_scaled)
-```
-
-
 ### XGBoost
 
 
@@ -449,11 +442,11 @@ plt.show()
     Test ACC: 0.9789603960396039
     
 
-![png](Advance_topic_web_files/Advance_topic_web_35_1.png)
+![png](Advance_topic_web_files/Advance_topic_web_35_1.png){: .center}
 
 
 
-![png](Advance_topic_web_files/Advance_topic_web_35_2.png)
+![png](Advance_topic_web_files/Advance_topic_web_35_2.png){: .center}
 
 
 We see that the neural network takes a long time to train but performs comparably well to the best models that have been implemented. Given a larger amount of data it is likely the neural network would have had better results. More parameter tuning may allow higher accuracy ratings to be achieved. This could be done by tuning the gradient descent method, adding hidden layers and expanding the number of nodes within the hidden layers, as well as regularizing the network with dropout, bootstrapping, data augmentation, and other techniques.
@@ -720,9 +713,7 @@ fig = go.Figure(data=data, layout=layout)
 py.iplot(fig, filename='bar-direct-labels')
 ```
 
-
-
-<div id="cde5a7d5-00da-443b-afd8-3ff97112dba4" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("cde5a7d5-00da-443b-afd8-3ff97112dba4", [{"marker": {"color": [0.002592381572, 0.00570694619875, 0.01388787072425, 0.018694865825, 0.105755242275, 0.0372522077, 0.0073404577585, 0.052477587805, 0.07265480535, 0.0254377775925, 0.0053469759375, 0.04812780642, 0.033573939250000004, 0.0135263709725, 0.0505625904475, 0.0003033413322395, 0.0046832890075, 0.0010668897902375, 0.0002467345945, 0.0008014231369854374, 0.0108510465415, 0.0150332656335, 0.08534117115, 0.020012924359750002, 0.045181236775, 0.011759963234500001, 7.65777925e-06, 0.0, 0.0, 0.0, 0.000418743215, 0.012177440470992704, 0.01172888204325, 0.0003538722095, 5.545143025e-06, 9.303648875e-06, 0.000111532234736565, 0.0459717722175, 0.0416355228155, 1.4926945525e-06, 0.0, 0.000715337055, 3.738103075e-06, 0.017476041591500003, 2.722499425e-06, 0.00013679327422499998, 2.33739106e-05, 0.0, 0.0, 1.117364555e-06], "colorscale": "Portland", "reversescale": false, "showscale": true}, "opacity": 0.6, "width": 0.5, "x": ["overall_sentiment", "overall_polarity", "var_sentiment", "var_polarity", "percent_with_emoji", "percent_hashtag", "avg_num_hashtags", "percent_mention", "avg_num_mentions", "avg_time_between_mention", "avg_word_len", "avg_time_between_rt", "percent_tweet_rt", "num_languages", "Screen name length", "Number of digits in screen name", "User name length", "Default profile (binary)", "Default picture (binary)", "Number of unique profile descriptions", "Number of friends", "Number of followers", "Number of favorites", "Number of tweets per hour", "Number of tweets total", "timing_tweet", "overall_language_ar", "overall_language_ca", "overall_language_cs", "overall_language_da", "overall_language_de", "overall_language_en", "overall_language_es", "overall_language_fr", "overall_language_he", "overall_language_hu", "overall_language_id", "overall_language_it", "overall_language_ja", "overall_language_ko", "overall_language_ml", "overall_language_nl", "overall_language_no", "overall_language_pt", "overall_language_ro", "overall_language_ru", "overall_language_sv", "overall_language_th", "overall_language_tr", "overall_language_zh-cn"], "y": [0.002592381572, 0.00570694619875, 0.01388787072425, 0.018694865825, 0.105755242275, 0.0372522077, 0.0073404577585, 0.052477587805, 0.07265480535, 0.0254377775925, 0.0053469759375, 0.04812780642, 0.033573939250000004, 0.0135263709725, 0.0505625904475, 0.0003033413322395, 0.0046832890075, 0.0010668897902375, 0.0002467345945, 0.0008014231369854374, 0.0108510465415, 0.0150332656335, 0.08534117115, 0.020012924359750002, 0.045181236775, 0.011759963234500001, 7.65777925e-06, 0.0, 0.0, 0.0, 0.000418743215, 0.012177440470992704, 0.01172888204325, 0.0003538722095, 5.545143025e-06, 9.303648875e-06, 0.000111532234736565, 0.0459717722175, 0.0416355228155, 1.4926945525e-06, 0.0, 0.000715337055, 3.738103075e-06, 0.017476041591500003, 2.722499425e-06, 0.00013679327422499998, 2.33739106e-05, 0.0, 0.0, 1.117364555e-06], "type": "bar", "uid": "b680b639-0d57-41b2-a2ee-4205db58d8cc"}], {"autosize": true, "hovermode": "closest", "showlegend": false, "title": "Barplots of Mean Feature Importance", "yaxis": {"gridwidth": 2, "ticklen": 5, "title": "Feature Importance"}}, {"showLink": true, "linkText": "Export to plot.ly", "plotlyServerURL": "https://plot.ly"})});</script><script type="text/javascript">window.addEventListener("resize", function(){window._Plotly.Plots.resize(document.getElementById("cde5a7d5-00da-443b-afd8-3ff97112dba4"));});</script>
+![png](/Advance_topic_web_files/feature_importance.png){: .center}
 
 
 ## Second-Level Predictions from the First-level Output
@@ -772,8 +763,7 @@ py.iplot(data, filename='labelled-heatmap')
 
 
 
-<div id="3a3a14dd-79c4-4231-873e-a385d6d4b9f6" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("3a3a14dd-79c4-4231-873e-a385d6d4b9f6", [{"colorscale": "Viridis", "reversescale": true, "showscale": true, "x": ["RandomForest", "ExtraTrees", "AdaBoost", "GradientBoost", "Logistic Regression"], "y": ["RandomForest", "ExtraTrees", "AdaBoost", "GradientBoost", "Logistic Regression"], "z": [[1.0, 0.8434031289695199, 0.9698964569664577, 0.984943321762908, 0.9548488636948499], [0.8434031289695199, 1.0, 0.8377550821494452, 0.8474871128073714, 0.8525751343593191], [0.9698964569664577, 0.8377550821494452, 1.0, 0.9763332402944056, 0.935324206728914], [0.984943321762908, 0.8474871128073714, 0.9763332402944056, 1.0, 0.9505033680423215], [0.9548488636948499, 0.8525751343593191, 0.935324206728914, 0.9505033680423215, 1.0]], "type": "heatmap", "uid": "423f9361-9c54-4a07-b721-f8571d3ad591"}], {}, {"showLink": true, "linkText": "Export to plot.ly", "plotlyServerURL": "https://plot.ly"})});</script><script type="text/javascript">window.addEventListener("resize", function(){window._Plotly.Plots.resize(document.getElementById("3a3a14dd-79c4-4231-873e-a385d6d4b9f6"));});</script>
-
+![png](/Advance_topic_web_files/heatmap.png){: .center}
 
 
 
@@ -1012,7 +1002,7 @@ plt.xticks(xx,index_name,rotation=90,fontsize = 16);
 sns.despine()
 ```
 
-![png](Advance_topic_web_files/Advance_topic_web_73_0.png)
+![png](Advance_topic_web_files/Advance_topic_web_73_0.png){: .center}
 
 
 ### Accuracy comparison
@@ -1045,11 +1035,11 @@ sns.despine()
 
 
 
-![png](Advance_topic_web_files/Advance_topic_web_75_0.png)
+![png](Advance_topic_web_files/Advance_topic_web_75_0.png){: .center}
 
 
 
-![png](Advance_topic_web_files/Advance_topic_web_75_1.png)
+![png](Advance_topic_web_files/Advance_topic_web_75_1.png){: .center}
 
 
 In terms of the model runtime,  linear logistic regression (Linear LR), LDA , random forest and SVM take less than 1 second to run. Stacking is the slowest model, which takes 399 seconds to run. If we need to run it for a huge dataset, we may need to consider the computational expense more seriously.
