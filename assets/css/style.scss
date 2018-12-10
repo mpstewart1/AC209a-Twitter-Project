@@ -1,0 +1,34 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.center-image
+{
+    margin: 0 auto;
+    display: block;
+    width: 400px;
+    height: 200px;
+}
+
+#content {
+    position: relative;
+}
+#content img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 350px;
+    height: 160px;
+    padding-top:30px;
+}
+
+h1 {
+  padding-top:30px;
+}
+
+body {
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 15px;
+}
