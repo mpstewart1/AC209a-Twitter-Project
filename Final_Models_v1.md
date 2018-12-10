@@ -1,5 +1,5 @@
 ---
-nav_include: 1
+<!-- nav_include: 1 -->
 title: Twitter Bot Detection Models
 notebook: Final_Models.ipynb
 ---
@@ -167,7 +167,7 @@ print('Accuracy of logistic regression model on the test set is {:.3f}'.format(l
 
     Accuracy of logistic regression model on training set is 0.776
     Accuracy of logistic regression model on the test set is 0.775
-    
+
 
 
 
@@ -214,7 +214,7 @@ linearLogCVpoly_test = linearLogCVpoly.score(X_test_scaled, Y_test)
 
 
     Polynomial-logistic accuracy: train=80.9%, test=80.0%
-    
+
 
 
 
@@ -277,7 +277,7 @@ qda_test = qda.score(X_test_scaled, Y_test)
 
     LDA accuracy train=70.6%, test: 70.8%
     QDA accuracy train=70.8%, test: 71.1%
-    
+
 
 
 
@@ -362,7 +362,7 @@ df_confusion.columns.name='Predicted'
 
 
     RF accuracy train=99.4%, test: 91.4%
-    
+
 
 
 
@@ -449,7 +449,7 @@ plot_confusion_matrix(df_conf_norm)
 
 
     Adaboost Test Accuracy: 94.58%
-    
+
 
 
 ![png](Final_Models_files/Final_Models_29_1.png)
@@ -512,7 +512,7 @@ plot_confusion_matrix(df_conf_norm)
 
 
     Accuracy: 92.22%
-    
+
 
 
 ![png](Final_Models_files/Final_Models_31_1.png)
@@ -580,7 +580,7 @@ knn_best_k_test = knn_best_k.score(X_test_scaled, Y_test)
 
     Best K= 8 with a max CV score of 0.7114063374922827
     test accuracy 0.718296224588577
-    
+
 
 
 
@@ -639,7 +639,7 @@ def plot_decision_boundary(x, y, model, title, ax, bounds=(0, 6), poly_flag=Fals
     # Plot data
     ax.scatter(x[y == 1, 0], x[y == 1, 1], c='green')
     ax.scatter(x[y == 0, 0], x[y == 0, 1], c='gray', alpha=0.3)
-    
+
     # Create mesh
     interval = np.arange(bounds[0], bounds[1], 0.01)
     n = np.size(interval)
@@ -652,7 +652,7 @@ def plot_decision_boundary(x, y, model, title, ax, bounds=(0, 6), poly_flag=Fals
     if(poly_flag):
         quad_features = preprocessing.PolynomialFeatures(degree=2)
         xx = quad_features.fit_transform(xx)
-        
+
     yy = model.predict(xx)    
     yy = yy.reshape((n, n))
 
@@ -660,12 +660,12 @@ def plot_decision_boundary(x, y, model, title, ax, bounds=(0, 6), poly_flag=Fals
     x1 = x1.reshape(n, n)
     x2 = x2.reshape(n, n)
     ax.contourf(x1, x2, yy, alpha=0.1, cmap='Greens')
-    
+
     # Label axes, set title
     ax.set_title(title)
     ax.set_xlabel('Latitude')
     ax.set_ylabel('Longitude')
-    
+
     return ax
 ```
 
@@ -677,7 +677,7 @@ def fit_and_plot_svm_for_c(x_train, y_train, x_test, y_test, C):
     # Fit SVM model
     model = svm.SVC(C=C, kernel='linear')
     model.fit(x_train, y_train)
-    
+
     # Train and test error
     tr_acc = model.score(x_train, y_train)
     ts_acc = model.score(x_test, y_test)
@@ -687,11 +687,11 @@ def fit_and_plot_svm_for_c(x_train, y_train, x_test, y_test, C):
     #                       'C = ' + str(C)\
     #                       + ', train acc = ' + str(tr_acc)\
     #                       + ', test acc = ' + str(ts_acc), ax, bounds)
-    
+
     # Plot support vectors
     #sv_indices = model.support_ # retrieve the support vector indices
     #ax.scatter(x_train[sv_indices, 0], x_train[sv_indices, 1], color='red', alpha=0.15, s=100) # draw circles around SVs
-    
+
     return tr_acc, ts_acc
 ```
 
@@ -729,7 +729,7 @@ def fit_and_plot_svm_for_poly_c(X_train_log, Y_train, X_test_log, Y_test, C, deg
     # Fit SVM model
     model = svm.SVC(C=C, kernel='poly', degree=degree)
     model.fit(X_train, Y_train)
-    
+
     # Train and test error
     tr_acc = model.score(X_train, Y_train)
     ts_acc = model.score(X_test, Y_test)
@@ -739,11 +739,11 @@ def fit_and_plot_svm_for_poly_c(X_train_log, Y_train, X_test_log, Y_test, C, deg
     #                       'C = ' + str(C)\
     ##                       + ', train acc = ' + str(tr_acc)\
      #                      + ', test acc = ' + str(ts_acc), ax, bounds)
-    
+
     # Plot support vectors
     #sv_indices = model.support_ # retrieve the support vector indices
     #ax.scatter(X_train_log[sv_indices, 0], X_train[sv_indices, 1], color='red', alpha=0.15, s=100) # draw circles around SVs
-    
+
     return tr_acc, ts_acc
 ```
 
@@ -808,7 +808,7 @@ def fit_and_plot_svm_for_kernels(x_train, y_train, x_test, y_test, C, kernel = '
     # Fit SVM model
     model = svm.SVC(C=C, kernel=kernel)
     model.fit(X_train, Y_train)
-    
+
     # Train and test error
     tr_acc = model.score(X_train, Y_train)
     ts_acc = model.score(X_test, Y_test)
@@ -818,11 +818,11 @@ def fit_and_plot_svm_for_kernels(x_train, y_train, x_test, y_test, C, kernel = '
     #                       'C = ' + str(C)\
     #                       + ', train acc = ' + str(tr_acc)\
     #                       + ', test acc = ' + str(ts_acc), ax, bounds)
-   # 
+   #
     # Plot support vectors
     #sv_indices = model.support_ # retrieve the support vector indices
     #ax.scatter(x_train[sv_indices, 0], x_train[sv_indices, 1], color='red', alpha=0.15, s=100) # draw circles around SVs
-    
+
     return tr_acc, ts_acc
 ```
 
@@ -860,7 +860,7 @@ Model stacking is an efficient ensemble method in which the predictions, generat
 
 ![title](modelstacking.png)
 
-Ensemble modeling and model stacking are especially popular in data science competitions, in which a sponsor posts a training set (which includes labels) and a test set (which does not include labels) and issues a global challenge to produce the best predictions of the test set for a specified performance criterion. The winning teams almost always use ensemble models instead of a single fine-tuned model. Often individual teams develop their own ensemble models in the early stages of the competition, and then join their forces in the later stages. 
+Ensemble modeling and model stacking are especially popular in data science competitions, in which a sponsor posts a training set (which includes labels) and a test set (which does not include labels) and issues a global challenge to produce the best predictions of the test set for a specified performance criterion. The winning teams almost always use ensemble models instead of a single fine-tuned model. Often individual teams develop their own ensemble models in the early stages of the competition, and then join their forces in the later stages.
 
 Another popular data science competition is the KDD Cup. The following figure shows the winning solution for the 2015 competition, which used a three-stage stacked modeling approach. A similar approach will be trialed for this project to try and obtain maximal predictive capability.
 
@@ -886,7 +886,7 @@ In this section we will try to implement a stacked model similar to that propose
 
 ```python
 # Going to use these 5 base models for the stacking
-from sklearn.ensemble import (RandomForestClassifier, AdaBoostClassifier, 
+from sklearn.ensemble import (RandomForestClassifier, AdaBoostClassifier,
                               GradientBoostingClassifier, ExtraTreesClassifier)
 from sklearn.svm import SVC
 ```
@@ -971,13 +971,13 @@ class SklearnHelper(object):
 
     def predict(self, x):
         return self.clf.predict(x)
-    
+
     def fit(self,x,y):
         return self.clf.fit(x,y)
-    
+
     def feature_importances(self,x,y):
             print(self.clf.fit(x,y).feature_importances_)
-    
+
 # Class to extend XGboost classifer
 ```
 
@@ -1041,7 +1041,7 @@ So now let us prepare five learning models as our first level classification. Th
 rf_params = {
     'n_jobs': -1,
     'n_estimators': 500,
-     'warm_start': True, 
+     'warm_start': True,
      #'max_features': 0.2,
     'max_depth': 6,
     'min_samples_leaf': 2,
@@ -1074,7 +1074,7 @@ gb_params = {
     'verbose': 0
 }
 
-# Support Vector Classifier parameters 
+# Support Vector Classifier parameters
 svc_params = {
     'kernel' : 'sigmoid',
     'C' : 0.1
@@ -1115,7 +1115,7 @@ We now feed the training and test data into our 5 base classifiers and use the O
 # Create our OOF train and test predictions. These base results will be used as new features
 et_oof_train, et_oof_test = get_oof(et, X_train_scaled, Y_train, X_test_scaled) # Extra Trees
 rf_oof_train, rf_oof_test = get_oof(rf,X_train_scaled, Y_train, X_test_scaled) # Random Forest
-ada_oof_train, ada_oof_test = get_oof(ada, X_train_scaled, Y_train, X_test_scaled) # AdaBoost 
+ada_oof_train, ada_oof_test = get_oof(ada, X_train_scaled, Y_train, X_test_scaled) # AdaBoost
 gb_oof_train, gb_oof_test = get_oof(gb,X_train_scaled, Y_train, X_test_scaled) # Gradient Boost
 svc_oof_train, svc_oof_test = get_oof(svc,X_train_scaled, Y_train, X_test_scaled) # Support Vector Classifier
 logreg_oof_train, logreg_oof_test = get_oof(logreg_stack,X_train_scaled, Y_train, X_test_scaled) # Linear Logistic Regression
@@ -1128,7 +1128,7 @@ print("Training is complete")
 
 
     Training is complete
-    
+
 
 ### Feature importances generated from the different classifiers
 
@@ -1158,7 +1158,7 @@ gb_feature = gb.feature_importances(X_train_scaled,Y_train);
      1.64445226e-04 2.16018516e-01 2.26869048e-03 2.54855733e-01
      1.05620892e-01 2.65655795e-01 7.26437428e-02 5.64419007e-02
      1.09025601e-02]
-    
+
 
 
 
@@ -1358,7 +1358,7 @@ import plotly.tools as tls
 
 
 ```python
-# Scatter plot 
+# Scatter plot
 trace = go.Scatter(
     y = feature_dataframe['Random Forest feature importances'].values,
     x = feature_dataframe['features'].values,
@@ -1398,7 +1398,7 @@ layout= go.Layout(
 fig = go.Figure(data=data, layout=layout)
 py.iplot(fig,filename='scatter2010')
 
-# Scatter plot 
+# Scatter plot
 trace = go.Scatter(
     y = feature_dataframe['Extra Trees  feature importances'].values,
     x = feature_dataframe['features'].values,
@@ -1437,7 +1437,7 @@ layout= go.Layout(
 fig = go.Figure(data=data, layout=layout)
 py.iplot(fig,filename='scatter2010')
 
-# Scatter plot 
+# Scatter plot
 trace = go.Scatter(
     y = feature_dataframe['AdaBoost feature importances'].values,
     x = feature_dataframe['features'].values,
@@ -1476,7 +1476,7 @@ layout= go.Layout(
 fig = go.Figure(data=data, layout=layout)
 py.iplot(fig,filename='scatter2010')
 
-# Scatter plot 
+# Scatter plot
 trace = go.Scatter(
     y = feature_dataframe['Gradient Boost feature importances'].values,
     x = feature_dataframe['features'].values,
@@ -1910,7 +1910,7 @@ print(gbm_test)
 
 
     0.9286866731203615
-    
+
 
 ## Blending
 
@@ -1952,7 +1952,7 @@ print(ensemble_test)
 
 
     0.9474023878670539
-    
+
 
 ## Summary of Models
 
@@ -1975,7 +1975,7 @@ display(df_var)
 
 
     Performance comparison of the six methods:
-    
+
 
 
 <div>
@@ -2092,7 +2092,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.linear_model import LogisticRegressionCV
 
-import tensorflow.keras 
+import tensorflow.keras
 from tensorflow.keras import models
 from tensorflow.keras import layers
 
@@ -2123,18 +2123,18 @@ model_NN.add(layers.Dense(1000, input_shape=(X_train_scaled.shape[1],),
                 activation='relu'))
 
 model_NN.add(layers.Dense(350, input_shape=(X_train_scaled.shape[1],),
-                activation='relu', 
+                activation='relu',
                 kernel_regularizer=regularizers.l2(0.01)))
 model_NN.add(Dropout(0.5))
-           
+
 model_NN.add(layers.Dense(350,   
-                activation='relu', 
+                activation='relu',
                 kernel_regularizer=regularizers.l2(0.01)))
 model_NN.add(Dropout(0.5))
 
 
 model_NN.add(layers.Dense(1,  
-                activation='sigmoid')) 
+                activation='sigmoid'))
 
 model_NN.summary()
 ```
@@ -2159,7 +2159,7 @@ model_NN.summary()
     Trainable params: 487,551
     Non-trainable params: 0
     _________________________________________________________________
-    
+
 
 
 
@@ -2206,7 +2206,7 @@ plt.xlabel("Epoch")
 plt.title("Accuracy score vs. Epochs")
 
 plt.legend()
-plt.show() 
+plt.show()
 ```
 
 
@@ -2226,7 +2226,7 @@ print('Test ACC:', test_acc)
     3099/3099 [==============================] - 0s 88us/step
     Test loss: 0.44289736228052284
     Test ACC: 0.8725395289379845
-    
+
 
 ### Steps for Further Improvement
 
