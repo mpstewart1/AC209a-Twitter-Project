@@ -465,7 +465,7 @@ Applying stacked models to real-world big data problems can produce greater pred
 
 In this section we will try to implement a stacked model similar to that proposed in the "[Stacked Ensemble Models for Improved Prediction Accuracy](https://support.sas.com/resources/papers/proceedings17/SAS0437-2017.pdf)" paper.
 
-## Helpers via Python Classes
+#### Helpers via Python Classes
 
 In the section of code, we write a class `SklearnHelper` that allows one to extend the inbuilt methods (such as train, predict and fit) common to all the Sklearn classifiers. Therefore this cuts out redundancy as won't need to write the same methods five times if we wanted to invoke five different classifiers.
 
@@ -502,7 +502,7 @@ class SklearnHelper(object):
 
  Essentially, we have created a wrapper class to extend the various Sklearn classifiers so that this should help us reduce having to write the same code over and over when we implement multiple learners to our stacker.
 
-### Out-of-Fold Predictions
+#### Out-of-Fold Predictions
 
 Stacking uses predictions of base classifiers as input for training to a second-level model. However one cannot simply train the base models on the full training data, generate predictions on the full test set and then output these for the second-level training. This runs the risk of your base model predictions already having "seen" the test set and therefore overfitting when feeding these predictions.
 
@@ -528,7 +528,7 @@ def get_oof(clf, x_train, y_train, x_test):
 ```
 
 
-### Generating our Base First-Level Models
+#### Generating our Base First-Level Models
 
 So now let us prepare five learning models as our first level classification. These models can all be conveniently invoked via the Sklearn library and are listed as follows:
 
@@ -616,7 +616,7 @@ logreg_stack = SklearnHelper(clf=LogisticRegression, seed=SEED, params=logreg_pa
 ```
 
 
-### Output of the First level Predictions
+#### Output of the First level Predictions
 
 We now feed the training and test data into our 5 base classifiers and use the Out-of-Fold prediction function we defined earlier to generate our first level predictions. Allow a handful of minutes for the chunk of code below to run.
 
@@ -633,7 +633,7 @@ svc_oof_train, svc_oof_test = get_oof(svc,X_train_scaled, Y_train, X_test_scaled
 logreg_oof_train, logreg_oof_test = get_oof(logreg_stack,X_train_scaled, Y_train, X_test_scaled) # Linear Logistic 
 ```
 
-### Feature importances generated from the different classifiers
+#### Feature importances generated from the different classifiers
 
 Now having learned our the first-level classifiers, we can utilise a very nifty feature of the Sklearn models and that is to output the importances of the various features in the training and test sets with one very simple line of code.
 
@@ -670,7 +670,7 @@ feature_dataframe['mean'] = feature_dataframe.mean(axis= 1) # axis = 1 computes 
 ```
 
 
-### Plotly Barplot of Average Feature Importances
+#### Plotly Barplot of Average Feature Importances
 
 Having obtained the mean feature importance across all our classifiers, we can plot them into a Plotly bar plot as follows:
 
@@ -716,9 +716,9 @@ py.iplot(fig, filename='bar-direct-labels')
 ![png](/Advance_topic_web_files/feature_importance.png){: .center}
 
 
-## Second-Level Predictions from the First-level Output
+#### Second-Level Predictions from the First-level Output
 
-### First-level output as new features
+##### First-level output as new features
 
 Having now obtained our first-level predictions, one can think of it as essentially building a new set of features to be used as training data for the next classifier. As per the code below, we are therefore having as our new columns the first-level predictions from our earlier classifiers and we train the next classifier on this.
 
@@ -743,7 +743,7 @@ base_predictions_test = pd.DataFrame( {'RandomForest': rf_oof_test.ravel(),
 ```
 
 
-### Correlation Heatmap of the Second Level Training set
+##### Correlation Heatmap of the Second Level Training set
 
 
 
@@ -777,7 +777,7 @@ x_test = x_test.mean(axis=1).reshape(-1,1)
 
 There have been quite a few articles and Kaggle competition winner stories about the merits of having trained models that are more uncorrelated with one another producing better scores. Having now concatenated and joined both the first-level train and test predictions as x_train and x_test, we can now fit a second-level learning model.
 
-### Second level learning model via XGBoost
+##### Second level learning model via XGBoost
 
 Here we choose the eXtremely famous library for boosted tree learning model, XGBoost. It was built to optimize large-scale boosted tree algorithms. For further information about the algorithm, check out the official documentation.
 
@@ -834,7 +834,7 @@ test_gbm=gbm.score(x_test, Y_test)
 
 The stacking model takes time but provides very high accuracy on the testing set, better than any of the individual models (indeed, that is why it is so popular amongst Kagglers). It is going to be very hard to beat this value.
 
-## Blending
+### Blending
 
 In this section we utilize the `mlens` package to develop a blended ensemble with 3 layers and more than dozen different classification techniques in order to achieve a truly superior predictive capability to the previous models. The blended model is also surprisingly fast given that it contains so many different methods.
 
