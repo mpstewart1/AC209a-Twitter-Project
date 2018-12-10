@@ -23,6 +23,7 @@
     <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
   </head>
   <body>
+
     <div class="container-lg px-3 my-5 markdown-body">
       <nav class="group">
         {% if site.title and site.title != page.title %}
@@ -32,15 +33,18 @@
         {% for node in navigation_pages %}
                 {% if node.nav_include %}
                     {% if page.url == node.url %}
-                      &nbsp;|&nbsp;<a class="active" href="{{node.url | prepend: site.baseurl}}" class="active" style="color:#b4d5fe">{{node.title}}</a>
+                      &nbsp;|&nbsp;<a class="active" font-size='30px' href="{{node.url | prepend: site.baseurl}}" class="active" style="color:#b4d5fe">{{node.title}}</a>
                     {% else %}
-                      &nbsp;|&nbsp;<a href="{{node.url | prepend: site.baseurl}}">{{node.title}}</a>
+                      &nbsp;|&nbsp;<a font-size='32px' href="{{node.url | prepend: site.baseurl}}">{{node.title}}</a>
                     {% endif %}
                 {% endif %}
         {% endfor %}
         </nav>
 
-      <h1>{{page.title}}</h1>
+    <div id="content">
+      <img src="img/bird_bot.png"/>
+      <div><h1 padding-top='100px'>{{page.title}}</h1></div>
+    </div>
 
       {{ content }}
 
