@@ -1,7 +1,7 @@
 ---
 <!-- nav_include: 1 -->
-title: Twitter Bot Detection Models
-notebook: Final_Models.ipynb
+<!-- title: Twitter Bot Detection Models
+notebook: Final_Models.ipynb -->
 ---
 
 ## Contents
