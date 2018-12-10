@@ -1042,9 +1042,9 @@ sns.despine()
 ![png](Advance_topic_web_files/Advance_topic_web_75_1.png){: .center}
 
 
-In terms of the model runtime,  linear logistic regression (Linear LR), LDA , random forest and SVM take less than 1 second to run. Stacking is the slowest model, which takes 399 seconds to run. If we need to run it for a huge dataset, we may need to consider the computational expense more seriously.
+In terms of the model runtime,  linear logistic regression, LDA , random forest and SVM take less than 1 second to run. Stacking is the slowest model, which takes 399 seconds to run. If we need to run it for a huge dataset, we may need to consider the computational expense more seriously.
 
 
 In terms of the model accuracy, random forest, AdaBoost, stacking, blending and the neural network all yield a training set accuray higher than 99%. The accuray score from the test set in random forest, Adaboost, XGBoost, stacking, blending and ANN are higher than 97%.
 
-Overall, the advanced models with the NLP features perform really good. The overall model that performs best and has the highest complexity and yet is relatively fast to implement seems to be the blended ensemble.
+Overall, the advanced models with the NLP features perform really well. The overall model that performs best and has the highest complexity and yet is relatively fast to implement seems to be the blended ensemble.
