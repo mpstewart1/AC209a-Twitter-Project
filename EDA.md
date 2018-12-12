@@ -118,6 +118,8 @@ plt.show()
 
 ![png](EDA_files/EDA_10_0.png){: .center}
 
+Bots have a much wider spread for emoji use-- some bots post emojis in almost every post, and others don't post at all. Humans are more consistent in their emoji use. The opposite appears to be true for percent of tweets with hashtags and average number of capital letters: humans have a broader distribution, while bots are clustered around 10% of tweets with hashtags and ~1 capital letter per tweet. 
+
 
 #### Tweeting style (retweets, mentions) based features:
 
@@ -141,6 +143,8 @@ plt.show()
 
 ![png](EDA_files/EDA_11_0.png){: .center}
 
+Again, we see very different distributions for humans and bots. Bots have an interesting bimodal distribution for percent of mentions, while humans have a much smoother distribution. Average number of mentions follows a similar pattern.There is a large spread on time between mention for both bots and humans, but bots mention more quickly than humans on average. Finally, the retweet patterns are very different between bots and humans. Notably, most bots either never retweet, or retweet all the time. Humans have a smoother distribution. Note that the spikes in usuage often refer to the imputed mean values. 
+
 
 #### Natural Language-based features
 
@@ -163,6 +167,8 @@ plt.show()
 
 
 ![png](EDA_files/EDA_12_0.png){: .center}
+
+Finally, when we compare the NLP features, we see that users tend to use longer words. Bots have a bimodal word diversity score-- some bots have low diversity and others high, while human users have less defined bimodal distribution. Interestingly, bots also have a bimodal difficult words score, with a lower average difficult word score than humans. For average words per tweet, bots sometimes used a high number (40>), but usually used around 10-20 words. Humans also used around 10-20 words, but sometimes posted very short tweets as well (0-5 words). As with word metrics, readability was similarly bimodal for bots in particular. Interestingly, it seems as though there are some "smart" bots and "dumb" bots, e.g. some that score higher in "intelligence" type metrics than humans, while others score lower. Perhaps this reflects different types of bots, or the retweet patterns of different bots and their sources for content.
 
 ### Pearson Correlation Heatmap
 
