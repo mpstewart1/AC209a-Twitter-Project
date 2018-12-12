@@ -32,7 +32,7 @@ The machine learning techniques used in this project are:
 
 The project also aims to provide insight into the following question:
 
-**How do bots and legitimate users differ in their discussion of political topics?**
+**Can we identify the ratio of bots to legitimate users using a subset of tweets about Trump?**
 
 The project has been split into several pages throughout this website, including:
 
