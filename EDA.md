@@ -96,6 +96,7 @@ plt.show()
 
 ![png](EDA_files/EDA_9_0.png){: .center}
 
+From these smoothed histograms, we can see that bots score high on average across all metrics of sentiment and subjectivity, but follow a similar distribution.
 
 
 #### Text style based features
