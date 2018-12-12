@@ -138,7 +138,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/EDA_12_0.png){: .center}
+![png](EDA_files/EDA_11_0.png){: .center}
 
 
 #### Natural Language-based features
@@ -161,7 +161,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/EDA_13_0.png){: .center}
+![png](EDA_files/EDA_12_0.png){: .center}
 
 ### Pearson Correlation Heatmap
 
