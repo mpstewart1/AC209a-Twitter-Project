@@ -73,77 +73,66 @@ df_timing
   </thead>
   <tbody>
     <tr>
-      <th>8</th>
       <td>Stacking (2nd-Level Model)</td>
       <td>399.203999</td>
       <td>0.993096</td>
       <td>0.986386</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>Polynomial LR</td>
       <td>50.692994</td>
       <td>0.998938</td>
       <td>0.969059</td>
     </tr>
     <tr>
-      <th>10</th>
       <td>ANN</td>
       <td>38.072873</td>
       <td>0.994158</td>
       <td>0.977723</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>AdaBoost</td>
       <td>22.391462</td>
       <td>1.000000</td>
       <td>0.971535</td>
     </tr>
     <tr>
-      <th>6</th>
       <td>kNN</td>
       <td>15.479240</td>
       <td>0.968136</td>
       <td>0.949257</td>
     </tr>
     <tr>
-      <th>9</th>
       <td>Blending (3rd-Level Model)</td>
       <td>4.316027</td>
       <td>1.000000</td>
       <td>0.985149</td>
     </tr>
     <tr>
-      <th>5</th>
       <td>XGBoost</td>
       <td>2.791808</td>
       <td>0.982673</td>
       <td>0.982673</td>
     </tr>
     <tr>
-      <th>7</th>
       <td>SVM</td>
       <td>0.493397</td>
       <td>0.925119</td>
       <td>0.913366</td>
     </tr>
     <tr>
-      <th>0</th>
       <td>Linear LR</td>
       <td>0.278980</td>
       <td>0.989379</td>
       <td>0.971535</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>Random Forest</td>
       <td>0.201104</td>
       <td>1.000000</td>
       <td>0.983911</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>LDA</td>
       <td>0.013134</td>
       <td>0.944769</td>
@@ -226,57 +215,46 @@ fscore_df
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>Stacking (2nd-Level Model)</td>
       <td>0.987709</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>Blending (3rd-Level Model)</td>
       <td>0.986667</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>Random Forest</td>
       <td>0.985442</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>XGBoost</td>
       <td>0.984410</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>ANN</td>
       <td>0.980000</td>
     </tr>
     <tr>
-      <th>5</th>
       <td>Linear LR</td>
       <td>0.974642</td>
     </tr>
     <tr>
-      <th>6</th>
       <td>AdaBoost</td>
       <td>0.974070</td>
     </tr>
     <tr>
-      <th>7</th>
       <td>Polynomial LR</td>
       <td>0.972497</td>
     </tr>
     <tr>
-      <th>8</th>
       <td>kNN</td>
       <td>0.955580</td>
     </tr>
     <tr>
-      <th>9</th>
       <td>LDA</td>
       <td>0.940541</td>
     </tr>
     <tr>
-      <th>10</th>
       <td>SVM</td>
       <td>0.924731</td>
     </tr>
@@ -387,47 +365,38 @@ auc_df
   </thead>
   <tbody>
     <tr>
-      <th>5</th>
       <td>XGBoost</td>
       <td>0.997405</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>Random Forest</td>
       <td>0.996267</td>
     </tr>
     <tr>
-      <th>8</th>
       <td>ANN</td>
       <td>0.993682</td>
     </tr>
     <tr>
-      <th>0</th>
       <td>Linear LR</td>
       <td>0.993483</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>AdaBoost</td>
       <td>0.991806</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>Polynomial LR</td>
       <td>0.986012</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>LDA</td>
       <td>0.979365</td>
     </tr>
     <tr>
-      <th>6</th>
       <td>kNN</td>
       <td>0.973546</td>
     </tr>
     <tr>
-      <th>7</th>
       <td>SVM</td>
       <td>0.969835</td>
     </tr>
@@ -566,7 +535,6 @@ df_botometer.head()
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>876476261220179968</td>
       <td>CKassube</td>
       <td>0.009922</td>
@@ -587,7 +555,6 @@ df_botometer.head()
       <td>0.194668</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>909863671563739136</td>
       <td>lesabaker43</td>
       <td>0.032183</td>
@@ -608,7 +575,6 @@ df_botometer.head()
       <td>0.413570</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>951973545831223296</td>
       <td>justinChilds17</td>
       <td>0.075832</td>
@@ -629,7 +595,6 @@ df_botometer.head()
       <td>0.515643</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>981943174947065856</td>
       <td>onegracehill</td>
       <td>0.018904</td>
@@ -650,7 +615,6 @@ df_botometer.head()
       <td>0.182079</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>4735793156</td>
       <td>BrennyBatt</td>
       <td>0.001828</td>

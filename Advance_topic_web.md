@@ -1,6 +1,6 @@
 ---
 nav_include: 5
-title: Advanced Features
+title: Advanced Models
 notebook: Advanced_topic.ipynb
 ---
 

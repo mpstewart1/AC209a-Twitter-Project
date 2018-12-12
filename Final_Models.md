@@ -1,6 +1,6 @@
 ---
 nav_include: 4
-title: Model Development
+title: Models
 notebook: Final_Models.ipynb
 ---
 
