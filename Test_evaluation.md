@@ -9,7 +9,7 @@ notebook: Test_evaluation.ipynb
 *  
 {: toc}
 
- # Test and Evaluation
+ # Testing and Evaluation
 
 One of the most important part of machine learning analytics is to take a deeper dive into model evaluation and performance metrics, and potential prediction-related errors that one may encounter. In this section, we did the error analysis for all the models we used for bot detection and compared the results. 
 
