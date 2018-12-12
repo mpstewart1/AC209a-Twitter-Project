@@ -51,39 +51,19 @@ Two individual models were developed for logistic regression, first a linear log
 ```python
 logreg = LogisticRegression(C=100000,fit_intercept=True).fit(X_train_scaled,Y_train)
 logreg_train = logreg.score(X_train_scaled, Y_train)
-#accuracy_score(Y_train,logreg.predict(X_train_scaled), normalize=True)
 print('Accuracy of logistic regression model on training set is {:.3f}'.format(logreg_train))
-# Classification error on test set
-#logreg_test = accuracy_score(logreg.predict(X_test_scaled), Y_test, normalize=True)
 logreg_test = logreg.score(X_test_scaled, Y_test)
 print('Accuracy of logistic regression model on the test set is {:.3f}'.format(logreg_test))
 ```
 
     Accuracy of logistic regression model on training set is: 0.776
     Accuracy of logistic regression model on the test set is: 0.775
-    
+
 As we can see for the basic logistic regression model, the model performs reasonably well on the dataset and is not overfitting. A confusion matrix will help us to assess the relative proportions of true positives and negatives and false positives and negatives when using this model.
 
 
 ```python
 y_pred_logreg= logreg.predict(X_test_scaled)
-df_confusion=pd.DataFrame(confusion_matrix(Y_test,y_pred_logreg))
-
-df_conf_norm = df_confusion / df_confusion.sum(axis=1)
-df_confusion.index.name='Actual'
-df_confusion.columns.name='Predicted'
-
-def plot_confusion_matrix(df_confusion, title='Confusion matrix from logreg', cmap=plt.cm.gray_r):
-    plt.matshow(df_confusion) # imshow
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(df_confusion.columns))
-    plt.xticks(tick_marks, df_confusion.columns)
-    plt.yticks(tick_marks, df_confusion.index)
-    plt.ylabel(df_confusion.index.name)
-    plt.xlabel(df_confusion.columns.name)
-
-plot_confusion_matrix(df_conf_norm)
 ```
 
 ![png](Final_Models_files/Final_Models_14_0.png){: .center}
@@ -107,30 +87,13 @@ linearLogCVpoly_test = linearLogCVpoly.score(X_test_scaled, Y_test)
 ```
 
     Polynomial-logistic accuracy: train=80.9%, test=80.0%
-    
+
 The accuracy of the polynomial model on the test set has been improved by several percent. We should once again check the confusion matrix and see if our false positive rating has also improved.
 
 
 ```python
 y_pred_PolyL = linearLogCVpoly.predict(X_test_scaled)
 
-df_confusion=pd.DataFrame(confusion_matrix(Y_test,y_pred_PolyL))
-
-df_conf_norm = df_confusion / df_confusion.sum(axis=1)
-df_confusion.index.name='Actual'
-df_confusion.columns.name='Predicted'
-
-def plot_confusion_matrix(df_confusion, title='Confusion matrix from Poly-logistic', cmap=plt.cm.gray_r):
-    plt.matshow(df_confusion) # imshow
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(df_confusion.columns))
-    plt.xticks(tick_marks, df_confusion.columns)
-    plt.yticks(tick_marks, df_confusion.index)
-    plt.ylabel(df_confusion.index.name)
-    plt.xlabel(df_confusion.columns.name)
-
-plot_confusion_matrix(df_conf_norm)
 ```
 
 ![png](Final_Models_files/Final_Models_16_0.png){: .center}
@@ -164,29 +127,12 @@ qda_test = qda.score(X_test_scaled, Y_test)
 
     LDA accuracy train=70.6%, test: 70.8%
     QDA accuracy train=70.8%, test: 71.1%
-    
+
 The LDA and QDA models run very quickly, which is one of their main advantages. However, as we see here, their performance on the test set is relatively poor in comparison to the logistic regression models. We see that LDA and QDA yield approximately the same values on the training and test set, which indicates that the assumption that the features are normally distributed is a reasonable assumption. Let us check the confusion matrix once again.
 
 ```python
 y_pred_lda = lda.predict(X_test_scaled)
 
-df_confusion=pd.DataFrame(confusion_matrix(Y_test,y_pred_lda))
-
-df_conf_norm = df_confusion / df_confusion.sum(axis=1)
-df_confusion.index.name='Actual'
-df_confusion.columns.name='Predicted'
-
-def plot_confusion_matrix(df_confusion, title='Confusion matrix from LDA', cmap=plt.cm.gray_r):
-    plt.matshow(df_confusion) # imshow
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(df_confusion.columns))
-    plt.xticks(tick_marks, df_confusion.columns)
-    plt.yticks(tick_marks, df_confusion.index)
-    plt.ylabel(df_confusion.index.name)
-    plt.xlabel(df_confusion.columns.name)
-
-plot_confusion_matrix(df_conf_norm)
 ```
 
 ![png](Final_Models_files/Final_Models_20_0.png){: .center}
@@ -196,24 +142,6 @@ The confusion matrix for LDA shows that we are predicting a relatively low numbe
 
 ```python
 y_pred_qda = qda.predict(X_test_scaled)
-
-df_confusion=pd.DataFrame(confusion_matrix(Y_test,y_pred_qda))
-
-df_conf_norm = df_confusion / df_confusion.sum(axis=1)
-df_confusion.index.name='Actual'
-df_confusion.columns.name='Predicted'
-
-def plot_confusion_matrix(df_confusion, title='Confusion matrix from QDA', cmap=plt.cm.gray_r):
-    plt.matshow(df_confusion) # imshow
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(df_confusion.columns))
-    plt.xticks(tick_marks, df_confusion.columns)
-    plt.yticks(tick_marks, df_confusion.index)
-    plt.ylabel(df_confusion.index.name)
-    plt.xlabel(df_confusion.columns.name)
-
-plot_confusion_matrix(df_conf_norm)
 ```
 ![png](Final_Models_files/Final_Models_21_0.png){: .center}
 
@@ -231,16 +159,10 @@ rf_test =rf.score(X_test_scaled, Y_test)
 
 print('RF accuracy train={:.1%}, test: {:.1%}'.format(rf_train,rf_test))
 y_pred = rf.predict(X_test_scaled)
-
-df_confusion=pd.DataFrame(confusion_matrix(Y_test,y_pred  ))
-
-df_conf_norm = df_confusion / df_confusion.sum(axis=1)
-df_confusion.index.name='Actual'
-df_confusion.columns.name='Predicted'
 ```
 
     RF accuracy train=99.4%, test: 91.4%
-    
+
 This is our highest test accuracy so far! This means that 9/10 of our predictions are correct, which is a big jump up from our previous models. But, we must still assess to see how high our false positive rates are using the confusion matrix. We will also check to see what the most important features are via variable importance.
 
 ```python
@@ -293,32 +215,16 @@ adaboost_train = adaboost.score(X_train_scaled, Y_train)
 adaboost_test = adaboost.score(X_test_scaled, Y_test)
 
 print("Adaboost Test Accuracy: %.2f%%" % (accuracy * 100.0))
-df_confusion=pd.DataFrame(confusion_matrix(Y_test,y_pred  ))
-
-df_conf_norm = df_confusion / df_confusion.sum(axis=1)
-df_confusion.index.name='Actual'
-df_confusion.columns.name='Predicted'
-
-def plot_confusion_matrix(df_confusion, title='Confusion matrix of adaboost', cmap=plt.cm.gray_r):
-    plt.matshow(df_confusion) # imshow
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(df_confusion.columns))
-    plt.xticks(tick_marks, df_confusion.columns, rotation=45)
-    plt.yticks(tick_marks, df_confusion.index)
-    plt.ylabel(df_confusion.index.name)
-    plt.xlabel(df_confusion.columns.name)
-
-plot_confusion_matrix(df_conf_norm)
 
 ```
 
     Adaboost Test Accuracy: 94.58%
-    
+
 ![png](Final_Models_files/Final_Models_29_1.png){: .center}
 
 This testing accuracy is even higher than the random forest model! This is clearly our best model so far, as we are only misclassifying around 5% of the test set. We should assess the variable importance and confusion matrix as we did for the random forest model.
 
+![png](Final_Models_files/Final_Models_29_1.png)
 
 ```python
 plt.figure(figsize=(5,5))
@@ -347,27 +253,10 @@ xgb_train = xgb.score(X_train_scaled, Y_train)
 xgb_test = xgb.score(X_test_scaled, Y_test)
 
 print("Accuracy: %.2f%%" % (accuracy * 100.0))
-df_confusion=pd.DataFrame(confusion_matrix(Y_test,predictions))
-
-df_conf_norm = df_confusion / df_confusion.sum(axis=1)
-df_confusion.index.name='Actual'
-df_confusion.columns.name='Predicted'
-
-def plot_confusion_matrix(df_confusion, title='Confusion matrix of xgboost', cmap=plt.cm.gray_r):
-    plt.matshow(df_confusion) # imshow
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(df_confusion.columns))
-    plt.xticks(tick_marks, df_confusion.columns, rotation=45)
-    plt.yticks(tick_marks, df_confusion.index)
-    plt.ylabel(df_confusion.index.name)
-    plt.xlabel(df_confusion.columns.name)
-
-plot_confusion_matrix(df_conf_norm)
 ```
 
     Accuracy: 92.22%
-    
+
 XGBoost also performs better than the random forest model, which is expected since we attained such a high result from our Adaboost model.
 
 ![png](Final_Models_files/Final_Models_31_1.png){: .center}
@@ -428,7 +317,7 @@ knn_best_k_test = knn_best_k.score(X_test_scaled, Y_test)
 
     Best K= 8 with a max CV score of 0.7114063374922827
     test accuracy 0.718296224588577
-    
+
 
 As should be expected from looking at the data in the EDA section, the KNN does not do as well as the other models. However, it is not the worst model we have seen and does indeed perform better than LDA and QDA.
 
@@ -476,4 +365,3 @@ plt.xticks(xx,index_name,rotation=90,fontsize = 14);
 
 
 We see that our best model was AdaBoost, which achieved a 94.5% accuracy on the test set. Our worst models were KNN, LDA, and QDA. The models with the lowest level of false positives were AdaBoost, XGBoost, and random forest. These are the top three models that should be further pursued for the optimized bot detection model.
-
