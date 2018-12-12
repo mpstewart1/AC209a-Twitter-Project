@@ -45,7 +45,7 @@ X_test_scaled=normalize(X_test,X_train)
 
 The first model that was developed as a way to trial the data used only two variables: friend count and follower count. These two variables, when shown in a log format for both legitimate users and bots, have a relatively clear boundary between them. These two features were used as a baseline model to compare other models too.
 
-![png](img/Boundary.png)
+![png](img/Boundary.png){: .center}
 
 
 ## User Feature Statisitcs
@@ -70,7 +70,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/EDA_6_0.png)
+![png](EDA_files/EDA_6_0.png){: .center}
 
 Although we expected some features to differ, some of the actual distributions might not be easily distinguished between bots and human users, such as number of digits in the screen name and number of unique descriptions. Some of them are easier to differentiate, such as number of friends, number of followers, number of favorites and number of tweets, indicating that those features might play an important role in the bot detection.
 
@@ -95,7 +95,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_23_0.png)
+![png](EDA_files/Twitter_data_datascrape_23_0.png){: .center}
 
 
 #### Text style based features
@@ -115,7 +115,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_25_0.png)
+![png](EDA_files/Twitter_data_datascrape_25_0.png){: .center}
 
 
 #### Tweeting style (retweets, mentions) based features:
@@ -138,7 +138,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_27_0.png)
+![png](EDA_files/Twitter_data_datascrape_27_0.png){: .center}
 
 
 #### Natural Language-based features
@@ -161,7 +161,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_29_0.png)
+![png](EDA_files/Twitter_data_datascrape_29_0.png){: .center}
 
 ### Pearson Correlation Heatmap
 
@@ -180,7 +180,7 @@ with sns.axes_style("white"):
     ax = sns.heatmap(corr, mask=mask, vmax=.3, square=True)
 ```
 
-![png](EDA_files/EDA_7_0.png)
+![png](EDA_files/EDA_7_0.png){: .center}
 
 The correlation plot tells us that most of the features are not correlated, which is what we like to see. There are a couple of features that have a correlation of approximately 0.3, this is higher than the rest of the features but is still relatively low and should not cause any issues. Thus, we can leave all of these features in our dataset.
 
@@ -202,7 +202,7 @@ g = sns.pairplot(pairplot_df, vars=[u'Account age (days)', 'Number of friends', 
 ```
 
 
-![png](EDA_files/EDA_8_0.png)
+![png](EDA_files/EDA_8_0.png){: .center}
 
 We see from the pairplot that there are several features where there is a relatively clear boundary between bots and users, indicating that we should be able to obtain good predictions from our models when utilizing these features. However, none of these features are able to completely separate bots from legitimate users, and hence using many features will get us better predictions. 
 
