@@ -565,7 +565,7 @@ detection_df = pd.read_csv('data_NLP/pred_dataframe.csv', sep = ',', header = 0)
 display(detection_df.head())
 ```
 
-
+#### Legitimate User Dataframe
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -691,7 +691,7 @@ display(detection_df.head())
 </div>
 
 
-
+#### Bot Dataframe
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -817,7 +817,7 @@ display(detection_df.head())
 </div>
 
 
-
+#### Detect Dataframe
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1010,7 +1010,291 @@ legitfiles = [f for f in listdir(mypath_legit) if isfile(join(mypath_legit, f))a
 detectfiles = [f for f in listdir(mypath_detect) if isfile(join(mypath_detect, f))and not f=='.DS_Store']
 ```
 
+#### 6) Generate NLP features for each user, and concatinate into a single dataframe
 
+
+```python
+# function to generate the NLP features
+def create_NLP_dataframe(user, userType):
+    
+    # check user type, and specify bot boolean and data folder accordingly
+    if userType=='bot':
+        tweets_df = pd.DataFrame.from_csv('data_NLP/bots/' + user ,sep='\t')
+        tweets_df['bot_bool'] = 1
+    elif userType =='legit':
+        tweets_df = pd.DataFrame.from_csv('data_NLP/legit/' + user ,sep='\t')
+        tweets_df['bot_bool'] = 0
+    elif userType == 'detect':
+        tweets_df = pd.DataFrame.from_csv('data_NLP/detection/' + user ,sep='\t')
+        tweets_df['bot_bool'] = float('NaN')
+    tweets_df.rename(index=str, columns={"full_text": "text"}, inplace=True)
+    
+    # user name is an int
+    tweets_df['user_id'] = [int(username) for username in tweets_df['user_id']]
+
+    tweets_df['created_at'] = pd.to_datetime(tweets_df['created_at'])
+
+    # number of hashtags 
+    tweets_df['num_hashtags'] = tweets_df['text'].apply(lambda x: len([x for x in x.split() if x.startswith('#')]))
+
+    # number of all-caps words 
+    tweets_df['num_upper'] = tweets_df['text'].apply(lambda x: len([x for x in x.split() if x.isupper()]))
+
+    # deal with emojis
+    class Emoticons:
+        POSITIVE = ["*O", "*-*", "*O*", "*o*", "* *",
+                    ":P", ":D", ":d", ":p",
+                    ";P", ";D", ";d", ";p",
+                    ":-)", ";-)", ":=)", ";=)",
+                    ":<)", ":>)", ";>)", ";=)",
+                    "=}", ":)", "(:;)",
+                    "(;", ":}", "{:", ";}",
+                    "{;:]",
+                    "[;", ":')", ";')", ":-3",
+                    "{;", ":]",
+                    ";-3", ":-x", ";-x", ":-X",
+                    ";-X", ":-}", ";-=}", ":-]",
+                    ";-]", ":-.)",
+                    "^_^", "^-^"]
+
+        NEGATIVE = [":(", ";(", ":'(",
+                    "=(", "={", "):", ");",
+                    ")':", ")';", ")=", "}=",
+                    ";-{{", ";-{", ":-{{", ":-{",
+                    ":-(", ";-(",
+                    ":,)", ":'{",
+                    "[:", ";]"
+                    ]
+
+    def getPositiveTweetEmojis(tweet):
+        return ''.join(c for c in tweet if c in Emoticons.POSITIVE)
+
+    def getNegativeTweetEmojis(tweet):
+        return ''.join(c for c in tweet if c in Emoticons.NEGATIVE)
+
+    def extractAllEmojis(str):
+        return ''.join(c for c in str if c in emoji.UNICODE_EMOJI)
+
+    # all emojis in a text 
+    def extract_emojis(str):
+        return ''.join(c for c in str if c in emoji.UNICODE_EMOJI)
+    tweets_df['all_emojis'] = [extractAllEmojis(tweet) for tweet in tweets_df['text']]
+    tweets_df['positive_emojis'] = [getPositiveTweetEmojis(tweet) for tweet in tweets_df['text']]
+    tweets_df['negative_emojis'] = [getNegativeTweetEmojis(tweet) for tweet in tweets_df['text']]
+
+    # clean tweets 
+    tweets_df['text'] = [re.sub(r'http[A-Za-z0-9:/.]+','',str(tweets_df['text'][i])) for i in range(len(tweets_df['text']))]
+    removeHTML_text = [BeautifulSoup(tweets_df.text[i], 'lxml').get_text() for i in range(len(tweets_df.text))]
+    tweets_df.text = removeHTML_text
+    tweets_df['text'] = [re.sub(r'@[A-Za-z0-9]+','',str(tweets_df['text'][i])) for i in range(len(tweets_df['text']))]
+
+    weird_characters_regex = re.compile(r"[^\w\d ]")
+    tweets_df.text = tweets_df.text.str.replace(weird_characters_regex, "")
+    RT_bool = [1 if text[0:2]=='RT' else 0.0 for text in tweets_df['text']]
+    tweets_df['RT'] = RT_bool
+    tweets_df.text = tweets_df.text.str.replace('RT', "")
+
+    # average time between retweets
+    retweet_table = tweets_df[['created_at','RT']].copy()
+    retweet_table  = retweet_table[retweet_table.RT == 1]
+    
+    # if user has retweets, calculate average time 
+    if (retweet_table.size)>1:
+        total_observation_period_rt = (retweet_table['created_at'][0]-retweet_table['created_at'][-1])
+        
+        total_observation_period_rt_days =(total_observation_period_rt.days)
+        # round up to 1 day
+        if total_observation_period_rt.days == 0.0:
+            total_observation_period_rt_days = 1.0
+            
+        time_between_average_rt = (len(retweet_table))/total_observation_period_rt_days
+    else:
+        time_between_average_rt = None
+
+    # average number of mentions
+    tweets_df['num_mentions'] = [len(eval(tweets_df['entities.user_mentions'][i])) for i in range(len(tweets_df.text))]
+
+    # average time between mentions
+    mention_table = tweets_df[['num_mentions','created_at']].copy()
+    mention_table  = mention_table[mention_table['num_mentions']>0]
+    if (mention_table.size)>1:
+        total_observation_period_mention = mention_table['created_at'][0]-mention_table['created_at'][-1]
+        
+        # round up to 1 day
+        total_observation_period_mention_days =total_observation_period_mention.days
+        if total_observation_period_mention.days == 0:
+            total_observation_period_mention_days = 1
+        time_between_average_mention = float(len(mention_table))/float(total_observation_period_mention_days)
+    else: 
+        time_between_average_mention = None 
+
+    # get word count, char count
+    tweets_df['word_count'] = tweets_df['text'].apply(lambda x: len(str(x).split(" ")))
+    tweets_df['char_count'] = tweets_df['text'].str.len() ## this also includes spaces
+    
+    # language of each tweet
+    try:
+        tweets_df['language'] = [langdetect.detect(tweets_df['text'][i]) for i in range(len(tweets_df))]
+    except:
+        tweets_df['language'] = 'en'
+    tweets_df['num_languages'] = len(set(tweets_df['language']))
+
+    # build some average features
+    
+    # retweet features 
+    tweets_df['avg_time_between_rt'] = time_between_average_rt
+    tweets_df['percent_tweet_rt'] = np.sum(tweets_df['RT'])/len(tweets_df)
+    
+    # mention features 
+    tweets_df['avg_time_between_mention'] = time_between_average_mention
+    tweets_df['avg_num_mentions'] = np.mean(tweets_df['num_mentions'])
+    tweets_df['mention_bool'] = [1 if (tweets_df['num_mentions'][i])>0 else 0.0 for i in range(len(tweets_df))]
+    tweets_df['percent_mention'] = np.sum(tweets_df['mention_bool'])/len(tweets_df)
+    
+    # hashtag features 
+    tweets_df['bool_hashtag'] = [1.0 if (tweets_df['num_hashtags'][i])>0 else 0.0 for i in range(len(tweets_df))]
+    tweets_df['percent_hashtag'] = np.sum(tweets_df['bool_hashtag'])/len(tweets_df)
+    tweets_df['avg_num_hashtags'] = np.mean(tweets_df['num_hashtags'])
+    
+    # text features 
+    tweets_df['avg_num_caps'] = np.mean(tweets_df['num_upper'])
+    tweets_df['avg_words_per_tweet'] = np.mean(tweets_df['word_count'])
+    
+    # emoji features 
+    tweets_df['emoji_bool'] = [1.0 if len(tweets_df['all_emojis'][i])>0 else 0.0 for i in range(len(tweets_df))]
+    tweets_df['emoji_p_bool'] = [1.0 if len(tweets_df['positive_emojis'][i])>0.0 else 0.0 for i in range(len(tweets_df))]
+    tweets_df['emoji_n_bool'] = [1.0 if len(tweets_df['negative_emojis'][i])>0.0 else 0.0 for i in range(len(tweets_df))]
+    tweets_df['emoji_pn_bool'] = [1.0 if len(tweets_df['positive_emojis'][i])>0.0 and 
+                                  len(tweets_df['negative_emojis'][i])>0 else 0.0 for i in range(len(tweets_df))]
+    tweets_df['percent_with_emoji'] = np.mean(tweets_df['emoji_bool'])
+    tweets_df['percent_with_p_emoji'] = np.mean(tweets_df['emoji_p_bool'])
+    tweets_df['percent_with_n_emoji'] = np.mean(tweets_df['emoji_n_bool'])
+    tweets_df['percent_with_pn_emoji'] = np.mean(tweets_df['emoji_pn_bool'])
+    
+    # variance features 
+    tweets_df['var_num_mentions'] = np.var(tweets_df['num_mentions'])
+    tweets_df['var_num_hashtags'] = np.var(tweets_df['num_hashtags'])
+    tweets_df['var_num_caps'] = np.var(tweets_df['num_upper'])
+    tweets_df['var_words_per_tweet']= np.var(tweets_df['word_count'])
+    tweets_df['var_emoji_bool']= np.var(tweets_df['emoji_bool'])
+
+    # get average word length
+    def avg_word(sentence):
+        words = sentence.split()
+        if len(words) == 0:
+            return 0.0
+        return (sum(len(word) for word in words)/len(words))
+
+    tweets_df['avg_word_len'] = tweets_df['text'].apply(lambda x: avg_word(x))
+    tweets_df[['text','avg_word_len']].head()
+
+    # all lowercase 
+    tweets_df['text'] = tweets_df['text'].apply(lambda x: " ".join(x.lower() for x in x.split()))
+
+    # remove stopwords and punctuation
+    retweet = ['RT','rt']
+    stoplist = stopwords.words('english') + list(punctuation) + retweet
+    
+    # character features 
+    tweets_df['num_exclamation'] = [tweets_df['text'][i].count("!") for i in range(len(tweets_df))]
+    tweets_df['avg_num_exclamation'] = np.mean(tweets_df['num_exclamation'])
+    
+    tweets_df['num_question_mark'] = [tweets_df['text'][i].count("?") for i in range(len(tweets_df))]
+    tweets_df['avg_num_question_mark'] = np.mean(tweets_df['num_question_mark'])
+    
+    tweets_df['num_ellipses'] = [tweets_df['text'][i].count("...") for i in range(len(tweets_df))]
+    tweets_df['avg_num_ellipses'] = np.mean(tweets_df['num_ellipses'])
+    
+    
+    tweets_df['text'] = tweets_df['text'].apply(lambda x: " ".join(x for x in x.split() if x not in stoplist))
+    tweets_df['text'].head()
+
+    # add sentiment feature
+    from textblob import Word, TextBlob  
+    tweets_df['sentiment'] = tweets_df['text'].apply(lambda x: TextBlob(x).sentiment[0])
+    tweets_df['polarity'] = tweets_df['text'].apply(lambda x: TextBlob(x).sentiment[1])
+    tweets_df = tweets_df.sort_values(['sentiment'])
+    
+    #variance of sentiment features 
+    tweets_df['var_sentiment']= np.var(tweets_df['sentiment'])
+    tweets_df['var_polarity']= np.var(tweets_df['polarity'])
+
+    # add list of nouns
+    tweets_df['nouns'] = [TextBlob(tweets_df.text[i]).noun_phrases for i in range(len(tweets_df.text))]
+
+    tweets_df['POS_tag_list'] = [TextBlob(tweets_df.text[i]).tags for i in range(len(tweets_df.text))]
+    tweets_df['POS_tag_list'] = [[tuple_POS[1] for tuple_POS in tweets_df['POS_tag_list'][i]] for i in range(len(tweets_df.text))]
+
+    # look at 10 most frequent words
+    freq = pd.Series(' '.join(tweets_df['text']).split()).value_counts()[:20]
+
+    tweets_df['top_20_nouns'] = [freq.index.values for i in range(len(tweets_df))]
+
+    list_of_POS = ["CC","CD","DT","EX","FW","IN","JJ","JJR","JJS","LS","MD","NN","NNS","NNP","NNPS",
+    "PDT","POS","PRP","PRP","RB","RBR","RBS","RP","TO","UH","VB","VBD","VBG","VBN",
+    "VBP","VBZ","WDT","WP","WP$","WRB"]
+
+    for POS in list_of_POS:
+        varname = POS+"_count"
+        tweets_df[varname] = [tweets_df['POS_tag_list'][i].count(POS) for i in range(len(tweets_df.text))]
+
+    # get full text in a string
+    full_tweet_text = ""
+    for i in range(len(tweets_df)):
+        full_tweet_text = full_tweet_text + " " + tweets_df['text'][i]
+    full_tweet_text_list = full_tweet_text.split()
+    unique_full_text = len(set(full_tweet_text_list))
+
+    # features based on full text 
+    
+    # language based features 
+    tweets_df['word_diversity'] = unique_full_text/len(full_tweet_text)
+    
+    # measures of grade level
+    tweets_df['flesch_reading_ease'] = [textstat.flesch_reading_ease(tweets_df['text'][i]) 
+                                        for i in range(len(tweets_df.text))]
+    tweets_df['avg_flesch_reading_ease']= np.mean(tweets_df['flesch_reading_ease'])
+    
+    tweets_df['readability_DC'] = [textstat.dale_chall_readability_score(tweets_df['text'][i]) 
+                                        for i in range(len(tweets_df.text))]
+    tweets_df['avg_readability_DC'] = np.mean(tweets_df['readability_DC'])
+    
+  
+    # higher means more difficult words 
+    tweets_df['difficult_words_score'] = textstat.difficult_words(full_tweet_text)/len(full_tweet_text_list)
+    
+    # combo of lots of metrics: 
+    #tweets_df['readability_combined_metric'] = textstat.text_standard(full_tweet_text, float_output=True)
+    
+    
+    tweets_df['readability_combined_metric'] = [textstat.text_standard(tweets_df['text'][i], float_output=True) 
+                                        for i in range(len(tweets_df.text))]
+    tweets_df['avg_readability_combined_metric']= np.mean(tweets_df['readability_combined_metric'])
+    
+    # sentiment
+    tweets_df['overall_sentiment'] = TextBlob(full_tweet_text).sentiment[0]
+    tweets_df['overall_polarity'] = TextBlob(full_tweet_text).sentiment[1]
+    
+    # overall language
+    tweets_df['overall_language'] = langdetect.detect(full_tweet_text)
+    
+    tweets_df['full_tweet_text'] = full_tweet_text
+    
+    feature_subset = tweets_df[['user_id', 'bot_bool','overall_sentiment','overall_polarity','var_sentiment',
+                                'var_polarity',
+                                'percent_with_emoji', 'percent_with_n_emoji','percent_with_p_emoji',
+                               'percent_with_pn_emoji', 'percent_hashtag','avg_num_hashtags',
+                               'percent_mention', 'avg_num_mentions','avg_time_between_mention',
+                               'avg_word_len','avg_num_exclamation','avg_num_ellipses',
+                               'avg_time_between_rt','percent_tweet_rt','avg_num_caps','avg_words_per_tweet',
+                               'word_diversity','difficult_words_score', 'num_languages','overall_language', 
+                                'avg_readability_combined_metric','avg_flesch_reading_ease', 'avg_readability_DC',
+                                'full_tweet_text']]
+
+    # all rows are identical now, so just return first one 
+    return feature_subset.iloc[0]
+
+```
 
 
 ## References
