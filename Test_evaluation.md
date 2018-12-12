@@ -300,12 +300,6 @@ auc_kNN = metrics.auc(fpr_kNN, tpr_kNN)
 fpr_SVM, tpr_SVM, thresholds_SVM = metrics.roc_curve(test_pred_df['Actual'], test_pred_df['SVM_proba'])
 auc_SVM = metrics.auc(fpr_SVM, tpr_SVM)
 
-#fpr_Stacking, tpr_Stacking, thresholds_Stacking = metrics.roc_curve(test_pred_df['Stacking (2nd-Level Model)'], test_pred_df['Stacking_proba'])
-#auc_Stacking = metrics.auc(fpr_Stacking, tpr_Stacking)
-
-#fpr_Blending, tpr_Blending, thresholds_Blending = metrics.roc_curve(test_pred_df['Blending'], test_pred_df['Blending_proba'])
-#auc_Blending = metrics.auc(fpr_Blending, tpr_Blending)
-
 fpr_ANN, tpr_ANN, thresholds_ANN = metrics.roc_curve(test_pred_df['Actual'], test_pred_df['ANN_proba'])
 auc_ANN = metrics.auc(fpr_ANN, tpr_ANN)
 
@@ -798,7 +792,9 @@ plt.show()
 ![png](Test_evaluation_files/Test_evaluation_34_0.png){: .center}
 
 
-Below is the detailed result from manual check.
+**Below is the detailed result from manual check.**
+
+Results are reported in the following form: User ID, Username, description of account from visual inspection and human evaluation of bot status. 
 
 Intersection of the three:
    1. 981849056380116992, lasandr61994924, very young twitter account, might be a bot, only retweets, default settings.
@@ -812,9 +808,6 @@ Detected only by Botometer
    1. 16585101, ouchinagirl, political bot, seems to be part of a botnet, only retweets
    2. 4784160126, Disco_Snoopy, definitely a bot, tweets every minute.
    3. 978333132511436800, RobertElzey6, looks like a bot, very frequent retweets.
-
-
-
 
 ### 4. Conclusion
 
