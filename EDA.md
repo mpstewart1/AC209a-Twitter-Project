@@ -94,7 +94,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-![png](EDA_files/EDA_6_0.png){: .center}
+![png](EDA_files/EDA_9_0.png){: .center}
 
 
 
