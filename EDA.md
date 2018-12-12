@@ -74,6 +74,95 @@ plt.show()
 
 Although we expected some features to differ, some of the actual distributions might not be easily distinguished between bots and human users, such as number of digits in the screen name and number of unique descriptions. Some of them are easier to differentiate, such as number of friends, number of followers, number of favorites and number of tweets, indicating that those features might play an important role in the bot detection.
 
+Next, let's repeat the process for our natural language and text-based features.
+
+### Natural Language Feature Histograms
+
+#### First, let's look at the sentiment and subjectivity features:
+
+
+```python
+features = ['overall_sentiment', 'overall_polarity', 'var_sentiment', 'var_polarity']
+fig, axes = plt.subplots(len(features),1, figsize = (10,10))
+for i in range(len(features)):
+    sns.kdeplot(legit_df[features[i]], ax = axes[i], label = 'user')
+    sns.kdeplot(bots_df [features[i]], ax = axes[i], label = 'bots')
+    axes[i].set_xlabel(features[i])
+    axes[i].legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+
+![png](EDA_files/Twitter_data_datascrape_23_0.png)
+
+
+#### Text style based features
+
+
+```python
+features = ['percent_with_emoji', 'percent_hashtag','avg_num_caps']
+fig, axes = plt.subplots(len(features),1, figsize = (10,8))
+for i in range(len(features)):
+    sns.kdeplot(legit_df[features[i]], ax = axes[i], label = 'user')
+    sns.kdeplot(bots_df [features[i]], ax = axes[i], label = 'bots')
+    axes[i].set_xlabel(features[i])
+    axes[i].legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+
+![png](EDA_files/Twitter_data_datascrape_25_0.png)
+
+
+#### Tweeting style (retweets, mentions) based features:
+
+
+```python
+features = ['percent_mention', 'avg_num_mentions',
+            'avg_time_between_mention',  
+            'avg_time_between_rt','percent_tweet_rt']
+fig, axes = plt.subplots(len(features),1, figsize = (10,14))
+for i in range(len(features)):
+    sns.kdeplot(legit_df[features[i]], ax = axes[i], label = 'user')
+    sns.kdeplot(bots_df [features[i]], ax = axes[i], label = 'bots')
+    axes[i].set_xlabel(features[i])
+    axes[i].legend()
+
+plt.tight_layout()
+plt.show()
+
+```
+
+
+![png](EDA_files/Twitter_data_datascrape_27_0.png)
+
+
+#### Natural Language-based features
+
+
+```python
+features = ['avg_word_len','word_diversity' ,'difficult_words_score', 
+            'avg_words_per_tweet','avg_readability_combined_metric',  
+            'avg_flesch_reading_ease', 'avg_readability_DC']
+fig, axes = plt.subplots(len(features),1, figsize = (10,20))
+for i in range(len(features)):
+    sns.kdeplot(legit_df[features[i]], ax = axes[i], label = 'user')
+    sns.kdeplot(bots_df [features[i]], ax = axes[i], label = 'bots')
+    axes[i].set_xlabel(features[i])
+    axes[i].legend()
+
+plt.tight_layout()
+plt.show()
+
+```
+
+
+![png](EDA_files/Twitter_data_datascrape_29_0.png)
+
 ### Pearson Correlation Heatmap
 
 Correlation plots of the features tell us how related one feature is to the next. We would like there to be little correlation between features such that all the features are informative, meaning there are no redundant features being used in our predictions.
