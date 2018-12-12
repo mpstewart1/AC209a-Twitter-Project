@@ -736,7 +736,7 @@ In Venn diagram below, we show the intersection between different groups of bots
 1. The intersection of three models is actually not a typical bot.
 2. For those "bots" detected by only one model, same as before, some of them can also be verified as bots, but others are more like active human users.
 
-Detailed manual check results can be found below.
+**Detailed manual check results can be found below.**
 
 
 
