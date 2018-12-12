@@ -170,7 +170,7 @@ plt.show()
 
 Finally, when we compare the NLP features, we see that users tend to use longer words. Bots have a bimodal word diversity score-- some bots have low diversity and others high, while human users have less defined bimodal distribution. Interestingly, bots also have a bimodal difficult words score, with a lower average difficult word score than humans. For average words per tweet, bots sometimes used a high number (40>), but usually used around 10-20 words. Humans also used around 10-20 words, but sometimes posted very short tweets as well (0-5 words). As with word metrics, readability was similarly bimodal for bots in particular. Interestingly, it seems as though there are some "smart" bots and "dumb" bots, e.g. some that score higher in "intelligence" type metrics than humans, while others score lower. Perhaps this reflects different types of bots, or the retweet patterns of different bots and their sources for content.
 
-### Pearson Correlation Heatmap
+### Pearson Correlation Heatmap (User Features)
 
 Correlation plots of the features tell us how related one feature is to the next. We would like there to be little correlation between features such that all the features are informative, meaning there are no redundant features being used in our predictions.
 
@@ -190,6 +190,34 @@ with sns.axes_style("white"):
 ![png](EDA_files/EDA_7_0.png){: .center}
 
 The correlation plot tells us that most of the features are not correlated, which is what we like to see. There are a couple of features that have a correlation of approximately 0.3, this is higher than the rest of the features but is still relatively low and should not cause any issues. Thus, we can leave all of these features in our dataset.
+
+### Pearson Correlation Heatmap (NPL and Text-Based Features)
+
+```python
+colormap = plt.cm.RdBu
+plt.figure(figsize=(14,12))
+plt.title('Pearson Correlation of NLP and Text-Based Features', y=1.05, size=15)
+
+# Generate a mask for the upper triangle
+corr = legit_df[['avg_word_len','word_diversity' ,'difficult_words_score', 
+            'avg_words_per_tweet','avg_readability_combined_metric',  
+            'avg_flesch_reading_ease', 'avg_readability_DC',
+            'percent_mention', 'avg_num_mentions',
+            'avg_time_between_mention',  
+            'avg_time_between_rt','percent_tweet_rt',
+            'percent_with_emoji', 'percent_hashtag','avg_num_caps',
+            'overall_sentiment', 'overall_polarity', 'var_sentiment', 
+            'var_polarity']].astype(float).corr()
+mask = np.zeros_like(corr, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+with sns.axes_style("white"):
+    ax = sns.heatmap(corr, mask=mask, vmax=.3, square=True)
+```
+The NLP correlation plot tells us that most features are uncorrelated. The only strongly correlated features are the readability features. This is because the readability metrics are related by word length, word diversity, and other similar measures. We include both readibility metrics because they provide extra information about the tweets, but we are cautious to interpret any coefficients or importance values of one vs. the other due to multicollinearity.
+
+The word length is also correlated with a number of features, including number of words in a tweet, word diversity, difficult word score, etc. simply due to tweets being a fixed length. For example, if a user uses longer words, they cannot put as many words in a tweet. This correlation cannot be avoided.
+
+![png](EDA_files/EDA_13_0.png){: .center}
 
 ### Pairplot
 
