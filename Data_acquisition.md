@@ -567,19 +567,6 @@ display(detection_df.head())
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -693,19 +680,6 @@ display(detection_df.head())
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -819,19 +793,7 @@ display(detection_df.head())
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1009,24 +971,6 @@ botfiles = [f for f in listdir(mypath_bots) if isfile(join(mypath_bots, f)) and 
 legitfiles = [f for f in listdir(mypath_legit) if isfile(join(mypath_legit, f))and not f=='.DS_Store']
 detectfiles = [f for f in listdir(mypath_detect) if isfile(join(mypath_detect, f))and not f=='.DS_Store']
 ```
-
-    AC209a-Twitter-Milestone-2.ipynb Untitled.ipynb
-    Advanced_Features.md             [34m__pycache__[m[m
-    [34mAdvanced_Features_files[m[m          _config.yml
-    Data_acquisition.md              [34m_layouts[m[m
-    EDA.md                           [34m_support[m[m
-    [34mEDA_files[m[m                        [34massets[m[m
-    Final_Models.md                  [31mbot_users.txt[m[m
-    [34mFinal_Models_files[m[m               [34mcresci-2017.csv (1)[m[m
-    LICENSE                          [34mdata_NLP[m[m
-    Literature Review.ipynb          [34mimg[m[m
-    Literature_review.md             index.md
-    Merge Dataframes.ipynb           [31mlegitimate_users.txt[m[m
-    README.md                        myTokens.csv
-    Testing_Evaluation.md            myTokens.py
-    [34mTesting_Evaluation_files[m[m         [34mnotebooks[m[m
-    Twitter_data_datascrape.ipynb    tweets.json
-
 
 #### 6) Generate NLP features for each user, and concatinate into a single dataframe
 
