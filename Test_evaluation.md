@@ -811,6 +811,18 @@ From the comparison above, our top three models performed very well on our train
 
 In summary, bot detection is not a trivial task and it is difficult to evaluate the performance of our bot detection algorithms due to the lack of certainty about real users scraped from the Twitter API. Even humans cannot achieve perfect accuracy in bot detection. That said, the models we developed over the course of this project were able to detect bots with a high accuracy. They even had comparable performance to well-developed models from industry trained on datasets ten times the size of ours and with more than 1000 features. Adding NLP-related features to our models significantly improved their accuracy on our test set. However, we were most effective at bot detection on an unseen data set using only user-based features. With more time, we would train our NLP models on a larger diversity of bots and users to allow for stronger fingerprinting of bots versus legitimate users.
 
+## Future Work
+
+Recommendations for future improvements include:
+
+- Network features
+- Tweet timing entropy
+- Train and test models on larger datasets
+- Study tweet time series evolution with recurrent neural networks
+- Streaming bot detection
+- Develop a generative adversarial network to develop a bot capable of fooling bot detection algorithms
+- Model influence of bots on trending topics
+
 ## References
 
 [1] Varol, O., Ferrara, E., Davis, C. A., Menczer, F., & Flammini, A. (2017). Online human-bot interactions: Detection, estimation, and characterization. arXiv preprint arXiv:1703.03107.
