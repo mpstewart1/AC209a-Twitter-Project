@@ -64,7 +64,6 @@ df_timing
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>Model</th>
       <th>training time(s)</th>
       <th>train accuracy</th>
@@ -208,7 +207,6 @@ fscore_df
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>Model</th>
       <th>F score</th>
     </tr>
@@ -352,7 +350,6 @@ auc_df
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>Model</th>
       <th>AUC</th>
     </tr>
