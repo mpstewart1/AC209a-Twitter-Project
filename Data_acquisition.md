@@ -418,7 +418,119 @@ bot_df_final.head()
 </table>
 </div>
 
-### 2. NLP related features
+
+## Natural Language Processing and Text-Based Features
+
+### Background and feature description
+
+As we learned in our literature review, user-based features provide sufficient information to identify bots. However, the type of tweet and tweet content can provide additional information to help identify bots. After the list of user-based features was produced, we used the usernames to download additional information from Twitter. We downloaded the previous tweets for every user, up to 200 tweets, their timestamp, and a list of all the user mentions for each tweet. Retweets can be identified by the string 'RT' at the beginning of a tweet. Mentions can be identified by a '@' or by examining the length of the user_mentions field. We used these data to build the following features:
+
+    FEATURE                  DESCRIPTION
+    ========                 ============
+    overall_sentiment :      Sentiment is a measure of the negativity or positivity of a list of words. 
+                             We use the nltk and wordblob packages to evaluate the full text of a 
+                             user's tweets. The full text was made of a concatination of all text tweet 
+                             strings, with stopwords removed. The more positive the tweet, the higher 
+                             the value for overall_sentiment, and visa versa. Scores range from -1 to 1.
+                             
+    overall_polarity  :      Polarity is a measure of the subjectivity of a list of words. Overall 
+                             polarity is a measure of the overall subjectiveness of the user's Tweet text.
+                             
+    var_sentiment     :      Measure of the variance of sentiment. This is calculated by finding the 
+                             variance of sentiment scores for a user across their individual Tweets.
+                             
+    var_polarity      :      Measure of the variance of polarity. This is calculated by finding the 
+                             variance of polarity scores for a user across their individual Tweets.
+                             
+    percent_with_emoji:      Emojis are extracted, and the percent of tweets with at least one emoji 
+                             is calculated.
+                             
+    percent_with_hashtag:    Percents of tweets that have at least one hashtag. 
+    
+    avg_num_hashtag   :      Average number of hashtags in each tweet. 
+    
+    percent_mention   :      Percent of tweets with at least one mention. A mention is when a user 
+                             tags another user in their tweet, like @theRealDonaldTrump, etc. 
+                             
+    percent_retweet   :      Percent of tweets that are retweets.
+    
+    avg_num_mention   :      Average number of mentions in a tweet.
+    
+    avg_time_
+    between_mention   :      Average time between tweets that have at least one mention. If a user 
+                             has no mentions or only one mention, the mean is imputed.
+                             
+    avg_time_
+    between_retweet   :      Average time between retweets. If a user has no retweets or only one 
+                             retweet, the mean is imputed.
+                             
+    avg_word_len      :      The average word length in the full tweet text.
+    
+    avg_num_exclamation:     Average number of ! characters in the full tweet text.
+    
+    avg_num_ellipses  :      Average number of ... characters in the full tweet text.
+    
+    avg_num_caps      :      Average number of words with capital letters in full tweet text.
+    
+    avg_words_per_tweet:     Average number of words per tweet.
+    
+    word_diversity    :      The word diversity is a measure of number of unique words/number 
+                             of total words. This is calculated on the full tweet text.
+                             
+    difficult_
+    word_score        :      This is calculated using the textstat package, and returns 
+                             the number of difficult words/total number of words for the full tweet text.
+                             
+    num_languages     :      The language for each tweet is determined, and num_languages is the 
+                             sum of unique tweet languages.
+                             
+    overall_language  :      The language of the full tweet text.
+    
+    avg_readability_DC:      A measure of the average Dale Chall readability score. This 
+                             returns the average grade level necessary to read and comprehend the text.  
+                             
+    avg_flesch_
+    reading_ease      :      Flesch reading ease measures the readability of text. A higher score is better.
+    
+    avg_readability_
+    combined_metric :        Measure for the overall readability that combines a wide variety of 
+                             reading metrics, including the aformentioned Flesch reading metric and 
+                             Dale Chall readability score. 
+
+### Description of data aquisition, cleaning, and feature construction
+
+#### 1) Import the relevant packages 
+
+
+```python
+from os import listdir
+from os.path import isfile, join
+import sys
+import jsonpickle
+import os
+import tweepy
+import nltk 
+import pandas as pd
+import json
+import csv
+from pandas.io.json import json_normalize
+from datetime import datetime, timezone
+from nltk.corpus import stopwords
+from string import punctuation
+from bs4 import BeautifulSoup
+import numpy as np
+import botometer
+import re
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly
+import langdetect
+import textstat
+import emoji
+
+import warnings
+warnings.filterwarnings("ignore")
+```
 
 ## References
 
