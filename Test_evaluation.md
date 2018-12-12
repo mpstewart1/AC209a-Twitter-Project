@@ -325,11 +325,11 @@ auc_df = auc_df.sort_values('AUC', ascending = False)
 auc_df
 ```
 
-
+The above code generates the ROC curves shown below. 
 
 ![png](Test_evaluation_files/Test_evaluation_15_0.png){: .center}
 
-
+From the ROC curve, except for some poorly performing models like SVM, kNN, LDA and Polynomial LR, those ROC curves for models with AUC higher than 0.99 overlapped with each other and are not distinguishable. The higher AUC, the better. In terms of AUC, XGBoost, random forest and ANN are the best. Note that we didn't include stacking and blending into this comparison, because we weren't able to calculate the prediction probability from those models.
 
 
 
@@ -397,7 +397,7 @@ auc_df
 
 
 
-The table above showing AUC is ranked in descending order. From the ROC curve, except for some poorly performing models like SVM, kNN, LDA and Polynomial LR, those ROC curves for models with AUC higher than 0.99 overlapped with each other and are not distinguishable. The higher AUC, the better. In terms of AUC, XGBoost, random forest and ANN are the best. Note that we didn't include stacking and blending into this comparison, because we weren't able to calculate the prediction probability from those models.
+The table above shows AUC is ranked in descending order. 
 
 ## Evaluation
 
@@ -503,7 +503,6 @@ df_botometer.head()
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>User_id</th>
       <th>User_name</th>
       <th>cap_english</th>
