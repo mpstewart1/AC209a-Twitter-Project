@@ -44,3 +44,7 @@ The project has been split into several pages throughout this website, including
 - [Testing and Evaluation](https://mrdragonbear.github.io/AC209a-Twitter-Project/Testing_Evaluation.html)
 
 ![screenshot](/img/twitter.png){: .center-image }
+
+## Summary
+
+In summary, bot detection is not a trivial task and it is difficult to evaluate the performance of our bot detection algorithms due to the lack of certainty about real users scraped from the Twitter API. Even humans cannot achieve perfect accuracy in bot detection. That said, the models we developed over the course of this project were able to detect bots with a high accuracy. They even had comparable performance to well-developed models from industry trained on datasets ten times the size of ours and with more than 1000 features. Adding NLP-related features to our models significantly improved their accuracy on our test set. However, we were most effective at bot detection on an unseen data set using only user-based features. With more time, we would train our NLP models on a larger diversity of bots and users to allow for stronger fingerprinting of bots versus legitimate users.
