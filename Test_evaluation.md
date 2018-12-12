@@ -407,7 +407,7 @@ Botometer (formerly BotOrNot), developed by researchers in Indiana University, c
 
 The data was extracted from API search by using the keyword "Trump". We extracted 898 users and constructed the features for the model. 
 
-### 1. Extracting the data
+### 1. Data Extraction
 
 
 
@@ -445,7 +445,7 @@ full_df_pred = create_df(dfs_pred, 'pred_dataframe')
 ```
 
 
-### 2. Bots detection through Botometer
+### 2. Bot detection using Botometer
 
 To check bots through Botometer, one needs to install Botometer by: pip install botometer. The API they used is served via Mashape Market. You must sign up for a free account in order to obtain a Mashape secret key to run Botometer. After setting up the base environment, Botometer can loop through the provided user_id list and return bot detection results.
 
@@ -642,7 +642,7 @@ botometer = dff_botometer['User_id'].values
     Percentage of bots detected by Botometer: 0.08351893095768374
     
 
-### 3. Bots detection through our model
+### 3. Bot detection using our model
 
 #### With user features only
 
