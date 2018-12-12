@@ -1040,38 +1040,6 @@ def create_NLP_dataframe(user, userType):
     # number of all-caps words 
     tweets_df['num_upper'] = tweets_df['text'].apply(lambda x: len([x for x in x.split() if x.isupper()]))
 
-    # deal with emojis
-    class Emoticons:
-        POSITIVE = ["*O", "*-*", "*O*", "*o*", "* *",
-                    ":P", ":D", ":d", ":p",
-                    ";P", ";D", ";d", ";p",
-                    ":-)", ";-)", ":=)", ";=)",
-                    ":<)", ":>)", ";>)", ";=)",
-                    "=}", ":)", "(:;)",
-                    "(;", ":}", "{:", ";}",
-                    "{;:]",
-                    "[;", ":')", ";')", ":-3",
-                    "{;", ":]",
-                    ";-3", ":-x", ";-x", ":-X",
-                    ";-X", ":-}", ";-=}", ":-]",
-                    ";-]", ":-.)",
-                    "^_^", "^-^"]
-
-        NEGATIVE = [":(", ";(", ":'(",
-                    "=(", "={", "):", ");",
-                    ")':", ")';", ")=", "}=",
-                    ";-{{", ";-{", ":-{{", ":-{",
-                    ":-(", ";-(",
-                    ":,)", ":'{",
-                    "[:", ";]"
-                    ]
-
-    def getPositiveTweetEmojis(tweet):
-        return ''.join(c for c in tweet if c in Emoticons.POSITIVE)
-
-    def getNegativeTweetEmojis(tweet):
-        return ''.join(c for c in tweet if c in Emoticons.NEGATIVE)
-
     def extractAllEmojis(str):
         return ''.join(c for c in str if c in emoji.UNICODE_EMOJI)
 
@@ -1079,8 +1047,6 @@ def create_NLP_dataframe(user, userType):
     def extract_emojis(str):
         return ''.join(c for c in str if c in emoji.UNICODE_EMOJI)
     tweets_df['all_emojis'] = [extractAllEmojis(tweet) for tweet in tweets_df['text']]
-    tweets_df['positive_emojis'] = [getPositiveTweetEmojis(tweet) for tweet in tweets_df['text']]
-    tweets_df['negative_emojis'] = [getNegativeTweetEmojis(tweet) for tweet in tweets_df['text']]
 
     # clean tweets 
     tweets_df['text'] = [re.sub(r'http[A-Za-z0-9:/.]+','',str(tweets_df['text'][i])) for i in range(len(tweets_df['text']))]
@@ -1162,14 +1128,7 @@ def create_NLP_dataframe(user, userType):
     
     # emoji features 
     tweets_df['emoji_bool'] = [1.0 if len(tweets_df['all_emojis'][i])>0 else 0.0 for i in range(len(tweets_df))]
-    tweets_df['emoji_p_bool'] = [1.0 if len(tweets_df['positive_emojis'][i])>0.0 else 0.0 for i in range(len(tweets_df))]
-    tweets_df['emoji_n_bool'] = [1.0 if len(tweets_df['negative_emojis'][i])>0.0 else 0.0 for i in range(len(tweets_df))]
-    tweets_df['emoji_pn_bool'] = [1.0 if len(tweets_df['positive_emojis'][i])>0.0 and 
-                                  len(tweets_df['negative_emojis'][i])>0 else 0.0 for i in range(len(tweets_df))]
     tweets_df['percent_with_emoji'] = np.mean(tweets_df['emoji_bool'])
-    tweets_df['percent_with_p_emoji'] = np.mean(tweets_df['emoji_p_bool'])
-    tweets_df['percent_with_n_emoji'] = np.mean(tweets_df['emoji_n_bool'])
-    tweets_df['percent_with_pn_emoji'] = np.mean(tweets_df['emoji_pn_bool'])
     
     # variance features 
     tweets_df['var_num_mentions'] = np.var(tweets_df['num_mentions'])
@@ -1296,6 +1255,63 @@ def create_NLP_dataframe(user, userType):
 
 ```
 
+
+
+```python
+# get all legitimate user files into dataframe and save it 
+legit_data_list = []
+legit_fail_list = []
+for i, legit_file in enumerate(legitfiles):
+    if i%10 == 0:
+        print(i)
+    try:
+        user_to_append = create_NLP_dataframe(legit_file,'legit')
+        legit_data_list.append(user_to_append)
+    except Exception as e: 
+        print(e)
+        print("user {} failed".format(legit_file))
+        legit_fail_list.append(legit_file)
+legit_df = pd.concat(legit_data_list,axis=1).T.copy()
+legit_df.to_csv("data_NLP/legit_NLP_full.csv", sep=',')
+```
+
+
+```python
+# get all bot files into dataframe and save it 
+bot_data_list = []
+bot_fail_list = []
+for i, bot_file in enumerate(botfiles):
+    if i%10 == 0:
+        print(i)
+    try:
+        user_to_append = create_NLP_dataframe(bot_file,'bot')
+        bot_data_list.append(user_to_append)
+    except Exception as e: 
+        print(e)
+        print("user {} failed".format(bot_file))
+        bot_fail_list.append(bot_file)
+bot_df = pd.concat(bot_data_list,axis=1).T.copy()
+bot_df.to_csv("data_NLP/bot_NLP_full.csv", sep=',')
+```
+
+
+```python
+# get all detect files into dataframe and save it 
+detect_data_list = []
+detect_fail_list = []
+for i, detect_file in enumerate(detectfiles):
+    if i%10 == 0:
+        print(i)
+    try:
+        user_to_append = create_NLP_dataframe(detect_file,'detect')
+        detect_data_list.append(user_to_append)
+    except Exception as e: 
+        print(e)
+        print("user {} failed".format(detect_file))
+        detect_fail_list.append(detect_file)
+detect_df = pd.concat(detect_data_list,axis=1).T.copy()
+detect_df.to_csv("data_NLP/detect_NLP_full.csv", sep=',')
+```
 
 ## References
 
