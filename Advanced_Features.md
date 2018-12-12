@@ -1117,7 +1117,7 @@ plt.axhline(0.95, c='k', linewidth=3, linestyle='--');
 
 
 
-![png](Advanced_Features_files/Final_Models_87_0.png)
+![png](Advanced_Features_files/Final_Models_87_0.png){: .center}
 
 
 The weighted stacked model performed the best on the test set, achieving an accuracy of 85.7%, a value more than 1% higher than that achieved by the other best models: logistic regression and random forest. With extra tuning of hyperparameters and model weightings it is likely that this could be increased further.
@@ -1200,7 +1200,7 @@ plt.show();
 
 
 
-![png](Advanced_Features_files/Final_Models_94_0.png)
+![png](Advanced_Features_files/Final_Models_94_0.png){: .center}
 
 
 
@@ -1220,7 +1220,7 @@ plt.show()
 
 
 
-![png](Advanced_Features_files/Final_Models_95_0.png)
+![png](Advanced_Features_files/Final_Models_95_0.png){: .center}
 
 
 
