@@ -1,5 +1,5 @@
 theme: jekyll-theme-minimal
-title: Twitter Bot Detection
+title: Twitter Bot Detection Project
 description: Using machine learning to detect bots on Twitter
 baseurl:
 markdown: kramdown
