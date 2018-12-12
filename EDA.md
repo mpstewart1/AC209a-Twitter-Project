@@ -94,8 +94,8 @@ plt.tight_layout()
 plt.show()
 ```
 
+![png](EDA_files/EDA_6_0.png){: .center}
 
-![png](EDA_files/Twitter_data_datascrape_23_0.png){: .center}
 
 
 #### Text style based features
