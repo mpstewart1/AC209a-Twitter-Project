@@ -95,7 +95,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_23_0.png)
+![png](EDA_files/Twitter_data_datascrape_23_0.png){: .center}
 
 
 #### Text style based features
@@ -115,7 +115,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_25_0.png)
+![png](EDA_files/Twitter_data_datascrape_25_0.png){: .center}
 
 
 #### Tweeting style (retweets, mentions) based features:
@@ -138,7 +138,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_27_0.png)
+![png](EDA_files/Twitter_data_datascrape_27_0.png){: .center}
 
 
 #### Natural Language-based features
@@ -161,7 +161,7 @@ plt.show()
 ```
 
 
-![png](EDA_files/Twitter_data_datascrape_29_0.png)
+![png](EDA_files/Twitter_data_datascrape_29_0.png){: .center}
 
 ### Pearson Correlation Heatmap
 
