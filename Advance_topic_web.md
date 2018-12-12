@@ -775,7 +775,7 @@ py.iplot(data, filename='labelled-heatmap')
 
 
 
-![png](/Advance_topic_web_files/heatmap.png){: .center}
+![png](/Advance_topic_web_files/correlation.png){: .center}
 
 
 
