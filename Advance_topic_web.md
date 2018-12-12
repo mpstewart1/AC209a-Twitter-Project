@@ -670,15 +670,12 @@ feature_dataframe = pd.DataFrame( {'features': cols,
       'AdaBoost feature importances': ada_feature,
     'Gradient Boost feature importances': gb_feature
     })
-
-# feature_dataframe
 ```
 
 
 ```python
 # Create the new column containing the average of values
 feature_dataframe['mean'] = feature_dataframe.mean(axis= 1) # axis = 1 computes the mean row-wise
-# feature_dataframe.head(3)
 ```
 
 
@@ -751,7 +748,6 @@ base_predictions_test = pd.DataFrame( {'RandomForest': rf_oof_test.ravel(),
       'GradientBoost': gb_oof_test.ravel(),
         'Logistic Regression': logreg_oof_test.ravel()
     })
-# base_predictions_test.head()
 ```
 
 
