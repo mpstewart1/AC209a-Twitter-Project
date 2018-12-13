@@ -736,7 +736,7 @@ In Venn diagram below, we show the intersection between different groups of bots
 1. The intersection of three models is actually not a typical bot.
 2. For those "bots" detected by only one model, same as before, some of them can also be verified as bots, but others are more like active human users.
 
-Detailed manual check results can be found below.
+**Detailed manual check results can be found below.**
 
 
 
@@ -807,7 +807,21 @@ Detected only by Botometer
 
 ### 4. Conclusion
 
-From the comparison above, none of the models can capture all the bots. Even for the complex model using more than 1000 features like Botometer, there is still some missing spots. But our random forest model and stacking model with user features seem to do a decent job at bot detection. Adding NLP related features did improve the training and test accuracy a lot, but there might be some overfitting problem, so the model predicts limited bots when applied to real world.
+From the comparison above, our top three models performed very well on our training and test set. However, none of the models were able to capture all the bots when applied to external data scraped from the Twitter API. Even for complex models using more than 1000 features like the Botometer, there is still some misclassification. This is likely because the Botometer is more conservative in its predictions. Our best models were the random forest and stacking models, which performed very well at bot detection despite using fewer features than the Botometer. Whilst adding NLP-related features improved the training and test accuracy significantly, the models with NLP features were less effective at identifying bots in our scraped data set. This is likely because the NLP features in our test differed systematically from that in our scraped data set.
+
+In summary, bot detection is not a trivial task and it is difficult to evaluate the performance of our bot detection algorithms due to the lack of certainty about real users scraped from the Twitter API. Even humans cannot achieve perfect accuracy in bot detection. That said, the models we developed over the course of this project were able to detect bots with a high accuracy. They even had comparable performance to well-developed models from industry trained on datasets ten times the size of ours and with more than 1000 features. Adding NLP-related features to our models significantly improved their accuracy on our test set. However, we were most effective at bot detection on an unseen data set using only user-based features. With more time, we would train our NLP models on a larger diversity of bots and users to allow for stronger fingerprinting of bots versus legitimate users.
+
+## Future Work
+
+Recommendations for future improvements include:
+
+- Network features
+- Tweet timing entropy
+- Train and test models on larger datasets
+- Study tweet time series evolution with recurrent neural networks
+- Streaming bot detection
+- Develop a generative adversarial network to develop a bot capable of fooling bot detection algorithms
+- Model influence of bots on trending topics
 
 ## References
 
